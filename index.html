@@ -2,8 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pokopia Starter Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Bao's Pokopia Guide</title>
+  <meta name="theme-color" content="#2f8f6b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Bao's Pokopia">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <style>
     :root {
       --bg: #fdf8f1;
@@ -17,6 +23,7 @@
       --pink-soft: #fbe9ed;
       --gold: #b7791f;
       --gold-soft: #fbf1dc;
+      --bar: rgba(253, 248, 241, 0.94);
     }
     @media (prefers-color-scheme: dark) {
       :root:not([data-theme="light"]) {
@@ -31,6 +38,7 @@
         --pink-soft: #3a262b;
         --gold: #f2c46d;
         --gold-soft: #3a3122;
+        --bar: rgba(28, 25, 21, 0.94);
       }
     }
     :root[data-theme="dark"] {
@@ -45,61 +53,119 @@
       --pink-soft: #3a262b;
       --gold: #f2c46d;
       --gold-soft: #3a3122;
+      --bar: rgba(28, 25, 21, 0.94);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-padding-top: 130px; }
 
     body {
       font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.65;
-      padding: 2rem 16px;
     }
 
-    .container { max-width: 760px; margin: 0 auto; }
+    .container { max-width: 760px; margin: 0 auto; padding: 0 16px 5rem; }
 
-    header { text-align: center; margin-bottom: 2rem; }
-    h1 { font-size: 2rem; font-weight: 800; }
-    .subtitle { color: var(--muted); margin-top: 0.4rem; }
+    /* ---------- header ---------- */
+    header { text-align: center; padding: 1.75rem 16px 1rem; }
+    header img { width: 64px; height: 64px; border-radius: 16px; }
+    h1 { font-size: 1.8rem; font-weight: 800; margin-top: 0.4rem; }
+    .subtitle { color: var(--muted); margin-top: 0.2rem; }
 
+    /* ---------- sticky bar ---------- */
+    .bar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--bar);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 0 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .bar-inner { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+    .search-row { display: flex; gap: 0.5rem; }
+    #search {
+      flex: 1;
+      min-width: 0;
+      font: inherit;
+      font-size: 1rem;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+    }
+    #search:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+    .small-btn {
+      font: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 0 0.8rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
     nav {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-bottom: 2rem;
+      gap: 0.4rem;
+      overflow-x: auto;
+      margin-top: 0.55rem;
+      padding-bottom: 0.15rem;
+      scrollbar-width: none;
     }
+    nav::-webkit-scrollbar { display: none; }
     nav a {
+      flex-shrink: 0;
       background: var(--accent-soft);
       color: var(--accent);
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 600;
-      padding: 0.35rem 0.8rem;
+      padding: 0.3rem 0.75rem;
       border-radius: 999px;
     }
+    #no-results { display: none; text-align: center; color: var(--muted); padding: 2rem 0; }
 
-    section {
+    /* ---------- sections ---------- */
+    details.card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
+    details.card > summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    details.card > summary::-webkit-details-marker { display: none; }
+    details.card > summary h2 { font-size: 1.2rem; color: var(--accent); }
+    details.card > summary::after {
+      content: "▾";
+      color: var(--muted);
+      transition: transform 0.2s;
+    }
+    details.card[open] > summary::after { transform: rotate(180deg); }
+    .body { padding: 0 1.25rem 1.25rem; }
 
-    h2 { font-size: 1.35rem; color: var(--accent); margin-bottom: 0.9rem; }
-    h3 { font-size: 1.05rem; margin: 1.2rem 0 0.5rem; }
-
+    h3 { font-size: 1.05rem; margin: 1.1rem 0 0.5rem; }
     p { margin-bottom: 0.9rem; }
     ul, ol { padding-left: 1.4rem; margin-bottom: 0.9rem; }
     li { margin-bottom: 0.45rem; }
+    a { color: var(--accent); }
 
-    .tip, .must {
-      border-radius: 8px;
-      padding: 0.75rem 1rem;
-      margin: 1rem 0;
-    }
+    .tip, .must { border-radius: 8px; padding: 0.75rem 1rem; margin: 1rem 0; }
     .tip { background: var(--pink-soft); border-left: 4px solid var(--pink); }
     .tip > strong:first-child { color: var(--pink); }
     .must { background: var(--gold-soft); border-left: 4px solid var(--gold); }
@@ -109,535 +175,961 @@
     .table-wrap { overflow-x: auto; margin: 0.75rem 0 1rem; }
     table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
     th, td { padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
-    th { color: var(--muted); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em; }
 
-    .area {
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1rem 1.1rem;
-      margin: 1rem 0;
-    }
+    .area { border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; margin: 1rem 0; }
     .area h3 { margin-top: 0; }
-    .area .order { color: var(--muted); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+    .area .order { color: var(--muted); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
 
-    .checklist { list-style: none; padding-left: 0; }
-    .checklist li { margin-bottom: 0.35rem; }
-    .checklist label { display: flex; gap: 0.6rem; align-items: flex-start; cursor: pointer; }
-    .checklist input { margin-top: 0.35rem; width: 18px; height: 18px; accent-color: var(--accent); flex-shrink: 0; }
-    .checklist input:checked + span { color: var(--muted); text-decoration: line-through; }
-    .checklist small { color: var(--muted); }
+    /* Pokémon picture next to a name */
+    .pk { white-space: nowrap; }
+    .pk img {
+      width: 32px;
+      height: 32px;
+      vertical-align: middle;
+      margin: -8px 0 -6px -4px;
+      image-rendering: pixelated;
+    }
 
-    .count { color: var(--muted); font-size: 0.9rem; margin-bottom: 0.5rem; }
+    /* ---------- tick lists ---------- */
+    .ticks { list-style: none; padding-left: 0; }
+    .ticks > li { margin-bottom: 0.4rem; }
+    .ticks label { display: flex; gap: 0.6rem; align-items: flex-start; cursor: pointer; }
+    .ticks input[type=checkbox] { margin-top: 0.3rem; width: 19px; height: 19px; accent-color: var(--accent); flex-shrink: 0; }
+    .ticks input:checked + span { color: var(--muted); text-decoration: line-through; }
+    .ticks small { color: var(--muted); }
+    .ticks ul { list-style: disc; margin: 0.3rem 0 0 1.6rem; padding-left: 1rem; }
+
+    .progress { color: var(--muted); font-size: 0.9rem; margin-bottom: 0.6rem; }
+    .progress b { color: var(--accent); }
+
+    /* Pokémon checklist rows */
+    .poke-list { list-style: none; padding-left: 0; }
+    .poke-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.15rem 0;
+      border-bottom: 1px solid var(--border);
+      margin: 0;
+    }
+    .poke-list label { flex: 1; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; min-width: 0; }
+    .poke-list input { width: 19px; height: 19px; accent-color: var(--accent); flex-shrink: 0; }
+    .poke-list img { width: 44px; height: 44px; image-rendering: pixelated; flex-shrink: 0; }
+    .poke-list .txt { line-height: 1.3; }
+    .poke-list .txt small { display: block; color: var(--muted); font-size: 0.82rem; }
+    .poke-list input:checked ~ .txt b { color: var(--muted); text-decoration: line-through; }
+    .star {
+      font-size: 1.35rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      padding: 0.3rem;
+      line-height: 1;
+    }
+    .star.on { color: var(--pink); }
+
+    /* favourites */
+    .fav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem; }
+    .fav {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.75rem;
+      text-align: center;
+      background: var(--pink-soft);
+    }
+    .fav img { width: 80px; height: 80px; image-rendering: pixelated; }
+    .fav b { display: block; }
+    .fav small { color: var(--muted); display: block; line-height: 1.35; margin-top: 0.2rem; }
+    .fav .found { color: var(--accent); font-weight: 600; font-size: 0.8rem; margin-top: 0.35rem; }
+    .empty { color: var(--muted); text-align: center; padding: 0.5rem 0 0.25rem; }
+
+    .reset-note { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.75rem; }
+
+    /* back to top */
+    #top-btn {
+      position: fixed;
+      right: 16px;
+      bottom: calc(20px + env(safe-area-inset-bottom));
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1.3rem;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      z-index: 20;
+    }
+    #top-btn.show { opacity: 1; pointer-events: auto; }
 
     footer { text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 2rem; }
     footer a { color: var(--accent); }
+
+    .install { font-size: 0.9rem; }
+    .install li { margin-bottom: 0.3rem; }
   </style>
 </head>
 <body>
+
+<header>
+  <h1>Bao's Pokopia Guide</h1>
+  <div class="subtitle">Everything you need, in one place 💚</div>
+</header>
+
+<div class="bar">
+  <div class="bar-inner">
+    <div class="search-row">
+      <input id="search" type="search" placeholder="Search… e.g. Lapras, copper, bread" autocomplete="off">
+      <button class="small-btn" id="toggle-all" type="button">Open all</button>
+    </div>
+    <nav>
+      <a href="#today">Today</a>
+      <a href="#favs">Favourites</a>
+      <a href="#story">Story</a>
+      <a href="#collect">Pokémon</a>
+      <a href="#start">First steps</a>
+      <a href="#moves">Moves</a>
+      <a href="#habitats">Habitats</a>
+      <a href="#materials">Materials</a>
+      <a href="#farming">Farming</a>
+      <a href="#homes">Homes</a>
+      <a href="#friends">Happiness</a>
+      <a href="#decor">Decorating</a>
+      <a href="#coins">Coins</a>
+      <a href="#cooking">Cooking</a>
+      <a href="#mosslax">Mosslax</a>
+      <a href="#islands">Dream Islands</a>
+      <a href="#ending">Ending</a>
+      <a href="#app">Install</a>
+    </nav>
+  </div>
+</div>
+
 <div class="container">
 
-  <header>
-    <h1>Pokopia Starter Guide</h1>
-    <div class="subtitle">Everything you need to get through the story without getting stuck, plus lots of handy tips.</div>
-  </header>
+  <div id="no-results">Nothing found. Try a different word 🔍</div>
 
-  <nav>
-    <a href="#start">First steps</a>
-    <a href="#story">Story checklist</a>
-    <a href="#moves">Moves</a>
-    <a href="#habitats">Habitats</a>
-    <a href="#materials">Materials</a>
-    <a href="#farming">Farming</a>
-    <a href="#homes">Homes</a>
-    <a href="#friends">Making friends</a>
-    <a href="#decor">Decorating</a>
-    <a href="#coins">Coins</a>
-    <a href="#cooking">Cooking</a>
-    <a href="#mosslax">Mosslax</a>
-    <a href="#islands">Dream Islands</a>
-    <a href="#ending">Ending</a>
-    <a href="#collect">Pokémon checklist</a>
-  </nav>
-
-  <!-- FIRST STEPS -->
-  <section id="start">
-    <h2>First steps</h2>
-    <ul>
-      <li><strong>Change the camera:</strong> in Settings, set the camera distance to <strong>Far</strong> so you can see more while building.</li>
-      <li><strong>Try Mouse Mode:</strong> turn it on in Settings, then lay the right Joy-Con flat on a table and use it like a mouse. It makes placing blocks much easier.</li>
-      <li><strong>Placing blocks:</strong> hold <strong>A</strong> to keep placing blocks in a row. Hold <strong>ZL</strong> to walk sideways while you place, which makes straight walls easy.</li>
-      <li><strong>The day resets at 5 AM.</strong> Shop stock, Mosslax's buff and your Dream Island trip all refresh then.</li>
-      <li><strong>Pick up everything:</strong> press <strong>Y</strong> to grab small bits on the ground. Wood scraps, stones and seeds add up fast.</li>
-    </ul>
-    <div class="tip"><strong>Tip:</strong> Learn new moves and follow the story before spending a lot of time decorating. Each move opens up new things to do.</div>
-  </section>
-
-  <!-- STORY -->
-  <section id="story">
-    <h2>Story checklist: where to go next</h2>
-    <p>There are 4 story areas. Start in <strong>Withered Wasteland</strong>, then do <strong>Bleak Beach</strong> and <strong>Rocky Ridges</strong> in either order, and finish with <strong>Sparkling Skylands</strong>. Every area follows the same pattern: rebuild its Pokémon Center (needs Environment Level 3), then finish its big request.</p>
-    <p>Gold boxes show the <strong>must-have Pokémon, moves and food</strong> for each area.</p>
-
-    <div class="area">
-      <div class="order">Area 1</div>
-      <h3>Withered Wasteland</h3>
-      <ol>
-        <li>Follow Professor Tangrowth's tutorial.</li>
-        <li>Make tall grass habitats to meet Bulbasaur, Squirtle and Charmander.</li>
-        <li>Get Scyther (Cut) and Hitmonchan (Rock Smash) to join.</li>
-        <li>Reach Environment Level 3 and rebuild the Pokémon Center.</li>
-        <li><strong>"Yawn Up a Storm":</strong> find Slowpoke, water the land with Water Gun, grow plants and flowers, and break walls to let the rivers flow. Once it's humid enough, bring Slowpoke over to yawn. <strong>Kyogre</strong> brings rain back.</li>
-        <li>Use Rock Smash to rescue Onix. This opens Bleak Beach and Rocky Ridges.</li>
-      </ol>
-      <div class="must"><strong>Must-haves</strong>
-        <ul>
-          <li><strong>Squirtle</strong> → Water Gun, <strong>Bulbasaur</strong> → Leafage, <strong>Scyther</strong> → Cut, <strong>Hitmonchan</strong> → Rock Smash, <strong>Drilbur</strong> → Rototiller (and free Bean Seeds)</li>
-          <li><strong>Timburr or Machop</strong> as builders (4 tall grass + 1 big boulder)</li>
-          <li><strong>Slowpoke</strong> for the story (4 tall grass + 2 ocean water)</li>
-          <li><strong>Charmander</strong> to light fires and ovens</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="area">
-      <div class="order">Area 2 (or 3)</div>
-      <h3>Bleak Beach</h3>
-      <ol>
-        <li>Stack blocks to fix the fountain and drain the Pokémon Center, then rebuild it.</li>
-        <li>Make habitats for Torchic and Piplup, and help Meowth fix its house.</li>
-        <li><strong>"Brighten Things Up":</strong> use Pawmi to restore power. Torchic runs the furnace and Piplup turns the waterwheel. With Peakychu, put up lights and connect power poles until the town is bright.</li>
-        <li>Break the wall near Trubbish to find the sleeping <strong>Mosslax</strong>.</li>
-        <li><strong>Raikou</strong> brings thunder and wakes Mosslax. Climb the cliff to talk to Raikou.</li>
-      </ol>
-      <div class="must"><strong>Must-haves</strong>
-        <ul>
-          <li><strong>Lapras</strong> → Surf (1 big palm tree + 4 hedges + 2 ocean water). Lapras may only show up after you leave and come back.</li>
-          <li><strong>Zorua</strong> → Camouflage (4 seashore flowers)</li>
-          <li><strong>Pawmi</strong> for electricity (4 seashore flowers, or a seat + table + menu board + plated food)</li>
-          <li><strong>Torchic</strong> (wooden birdhouse + table + plated food) and <strong>Piplup</strong> (4 yellow tall grass + 2 water)</li>
-          <li><strong>Trubbish</strong> (waste bin + sign + garbage bags). It turns trash into iron and paper.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="area">
-      <div class="order">Area 3 (or 2)</div>
-      <h3>Rocky Ridges</h3>
-      <ol>
-        <li>Plant red tall grass to meet Scorbunny.</li>
-        <li>Make a training field (4 red tall grass + 2 sandbags) to get <strong>Machoke</strong>. Use its <strong>Strength</strong> to push the Pokémon Center back into place.</li>
-        <li>Rescue <strong>Chef Dente</strong> with bread (see <a href="#cooking">Cooking</a>). This unlocks cooking.</li>
-        <li><strong>"Time to Party":</strong> find DJ Rotom in the tunnel and give it a CD. Then put out a Party Pot, display an appraised relic, bring a Hype Pokémon, and fill 5 Party Platters with different dishes.</li>
-        <li>For the final meal, bring <strong>15 Leppa Berries, 15 Wheat, 15 Beans and 5 Honey</strong>, plus 5 Pokémon including Chef Dente.</li>
-        <li><strong>Volcanion</strong> sets off fireworks. Talk to it at the mountain top.</li>
-      </ol>
-      <div class="must"><strong>Must-haves</strong>
-        <ul>
-          <li><strong>Machoke</strong> → Strength. <strong>Graveler</strong> → Rollout (4 moss + 1 mossy boulder)</li>
-          <li><strong>Chef Dente</strong>: cooking is a huge help from here on</li>
-          <li><strong>Ludicolo / Lotad</strong> for the party (4 duckweed + 2 water)</li>
-          <li><strong>Start growing Wheat and Beans now</strong>, because the party needs 15 of each</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="area">
-      <div class="order">Area 4 (last)</div>
-      <h3>Sparkling Skylands</h3>
-      <p>Opens after you've met Kyogre, Raikou and Volcanion.</p>
-      <ol>
-        <li>Take the elevator up to the floating ruins and rebuild the Pokémon Center.</li>
-        <li>Get <strong>Dragonite</strong> (canoe + 2 duckweed + 2 water, up high). It asks for 5 alarm clocks, then teaches <strong>Glide</strong>.</li>
-        <li><strong>"Rebuild the Huge Building":</strong> repair the skyscraper floor by floor:
-          <ul>
-            <li><strong>2F:</strong> 25 Concrete, 10 Glass, 5 Pokémetal, 10 Iron Ingots</li>
-            <li><strong>3F:</strong> 25 Concrete, 10 Glass, 10 Glowing Stone, 15 Copper Ingots. Bring Chef Dente.</li>
-            <li><strong>4F:</strong> 40 Concrete, 15 Glass, 10 Paper, 10 Bricks, 20 Lumber. Bring Peakychu.</li>
-          </ul>
-        </li>
-        <li>Go to the roof to meet <strong>Mewtwo</strong>.</li>
-      </ol>
-      <div class="must"><strong>Must-haves</strong>
-        <ul>
-          <li><strong>Dragonite</strong> → Glide. <strong>Gyarados</strong> → Waterfall (a better Surf)</li>
-          <li><strong>Froakie</strong> (4 pink tall grass + 2 water)</li>
-          <li>Lots of builders: the floors need 6, then 10, then 15 Pokémon helping</li>
-          <li>Save up iron, copper, paper and bricks before you start (see <a href="#materials">Materials</a>)</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- MOVES -->
-  <section id="moves">
-    <h2>Moves Ditto can learn</h2>
-    <p>You play as Ditto, and you learn moves by copying Pokémon you meet. Moves use <strong>PP</strong>, which works like energy. Eat food to refill it.</p>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Move</th><th>Who teaches it</th><th>What it's for</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Water Gun</strong></td><td>Squirtle</td><td>Brings dry ground and dead plants back to life</td></tr>
-          <tr><td><strong>Leafage</strong></td><td>Bulbasaur</td><td>Grows tall grass</td></tr>
-          <tr><td><strong>Cut</strong></td><td>Scyther</td><td>Chops trees, weeds and wood</td></tr>
-          <tr><td><strong>Rock Smash</strong></td><td>Hitmonchan</td><td>Breaks rocks and blocks</td></tr>
-          <tr><td><strong>Rototiller</strong></td><td>Drilbur</td><td>Makes farm plots, and moves plants without breaking them</td></tr>
-          <tr><td><strong>Jump</strong></td><td>Magikarp</td><td>Jump higher</td></tr>
-          <tr><td><strong>Surf</strong></td><td>Lapras (Bleak Beach)</td><td>Swim across water</td></tr>
-          <tr><td><strong>Camouflage</strong></td><td>Zorua (Bleak Beach)</td><td>Disguise yourself as an object</td></tr>
-          <tr><td><strong>Strength</strong></td><td>Machoke (Rocky Ridges)</td><td>Push heavy things</td></tr>
-          <tr><td><strong>Rollout</strong></td><td>Graveler (Rocky Ridges)</td><td>Roll around fast</td></tr>
-          <tr><td><strong>Glide</strong></td><td>Dragonite (Skylands)</td><td>Press R in the air to glide</td></tr>
-          <tr><td><strong>Waterfall</strong></td><td>Gyarados (Skylands)</td><td>Upgrades Surf</td></tr>
-          <tr><td><strong>Magnet Rise</strong></td><td>Magnemite (late game)</td><td>Float while building and place lots of blocks at once</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- HABITATS -->
-  <section id="habitats">
-    <h2>Habitats: how to get Pokémon</h2>
-    <p>Put certain things near each other, such as grass, flowers, trees or water, and Pokémon will come to live there. They don't need to be placed exactly. A sparkle means it worked. You can see every recipe you've found in the <strong>Habitat Dex</strong> in your Pokédex.</p>
-
-    <h3>Withered Wasteland</h3>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Make this</th><th>To attract</th></tr></thead>
-        <tbody>
-          <tr><td>4 tall grass</td><td>Bulbasaur, Squirtle, Charmander, Oddish, Geodude</td></tr>
-          <tr><td>4 tall grass + 1 big tree</td><td>Scyther, Bellsprout, Skwovet, Pinsir</td></tr>
-          <tr><td>4 tall grass + 1 big boulder</td><td>Machop, Timburr</td></tr>
-          <tr><td>4 tall grass + 2 water</td><td>Squirtle, Wartortle, Cramorant</td></tr>
-          <tr><td>4 tall grass + 2 ocean water</td><td>Slowpoke</td></tr>
-          <tr><td>4 tall grass up high</td><td>Pidgey, Hoothoot</td></tr>
-          <tr><td>4 tall grass + 1 light</td><td>Venonat</td></tr>
-          <tr><td>4 wildflowers</td><td>Eevee, Combee, Pidgey</td></tr>
-          <tr><td>8 wildflowers</td><td>Vespiquen, Ivysaur</td></tr>
-          <tr><td>4 wildflowers + 1 gravestone</td><td>Cubone</td></tr>
-          <tr><td>8 vegetable plots</td><td>Drilbur, Rowlet</td></tr>
-          <tr><td>2 seats + 1 table + 1 picnic basket</td><td>Pikachu, Pichu</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3>Bleak Beach</h3>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Make this</th><th>To attract</th></tr></thead>
-        <tbody>
-          <tr><td>4 yellow tall grass + 2 water</td><td>Piplup, Azurill, Marill</td></tr>
-          <tr><td>4 seashore flowers</td><td>Pawmi, Zorua</td></tr>
-          <tr><td>1 big palm tree + 4 hedges + 2 ocean water</td><td>Lapras</td></tr>
-          <tr><td>Wooden birdhouse + table + plated food</td><td>Torchic</td></tr>
-          <tr><td>Big palm tree + seat + plated food + lit campfire</td><td>Torchic, Growlithe</td></tr>
-          <tr><td>Seat + table + menu board + plated food</td><td>Pawmi, Pawmo</td></tr>
-          <tr><td>Waste bin + sign + garbage bags</td><td>Trubbish, Koffing</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3>Rocky Ridges</h3>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Make this</th><th>To attract</th></tr></thead>
-        <tbody>
-          <tr><td>4 red tall grass</td><td>Scorbunny, Riolu, Kricketot</td></tr>
-          <tr><td>4 red tall grass + 2 sandbags</td><td>Machoke, Machamp</td></tr>
-          <tr><td>Punching bag + table + CD player</td><td>Machoke, Riolu, Lucario</td></tr>
-          <tr><td>4 duckweed + 2 water</td><td>Lotad, Ludicolo</td></tr>
-          <tr><td>4 moss + 1 mossy boulder</td><td>Graveler, Golem</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3>Sparkling Skylands</h3>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Make this</th><th>To attract</th></tr></thead>
-        <tbody>
-          <tr><td>4 pink tall grass + 2 water</td><td>Froakie, Frogadier</td></tr>
-          <tr><td>Canoe + 2 duckweed + 2 water, up high</td><td>Dragonite</td></tr>
-          <tr><td>4 Skyland flowers</td><td>Rookidee</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="tip"><strong>Tip:</strong> A habitat only holds one Pokémon at a time. Once you've made friends with it, move it into a house so a new Pokémon can show up there. Rare Pokémon can take a while, so check back the next day.</div>
-  </section>
-
-  <!-- MATERIALS -->
-  <section id="materials">
-    <h2>Where to get materials</h2>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Material</th><th>How to get it</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Lumber</strong></td><td>Use Cut on trees and logs to get Small Logs. Give 10 logs to a <strong>Chop</strong> Pokémon (Scyther, Pinsir) and you get 50 Lumber back. Much faster than picking up scraps.</td></tr>
-          <tr><td><strong>Stone</strong></td><td>Use Rock Smash on any grey rock. Works everywhere.</td></tr>
-          <tr><td><strong>Iron Ore</strong></td><td>Mine it in Rocky Ridges, Rock Smash piles of metal, or give rubbish to a <strong>Recycle</strong> Pokémon like Trubbish.</td></tr>
-          <tr><td><strong>Gold / Copper Ore</strong></td><td>Dream Islands (Arcanine and Clefairy dolls), or hard rocks after a Hamburger Steak.</td></tr>
-          <tr><td><strong>Bricks</strong></td><td>Give Squishy Clay to a fire Pokémon.</td></tr>
-          <tr><td><strong>Paper</strong></td><td>Give Wastepaper to a Recycle Pokémon.</td></tr>
-          <tr><td><strong>Ingots</strong></td><td>Build a furnace and smelt ore with a fire Pokémon.</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="tip"><strong>Tip:</strong> In every new area, make friends with at least one Chop, Crush, Burn and Recycle Pokémon early. Then you'll never get stuck waiting on a material.</div>
-  </section>
-
-  <!-- FARMING -->
-  <section id="farming">
-    <h2>Farming</h2>
-    <ol>
-      <li>Help <strong>Drilbur</strong> in eastern Withered Wasteland. It teaches <strong>Rototiller</strong> and gives you 5 Bean Seeds.</li>
-      <li>Use Rototiller on grass or dirt to make a farm plot.</li>
-      <li>Hold the seeds from your bag, aim at the plot and press <strong>A</strong> to plant them.</li>
-      <li>Water them with Water Gun if they need it, then wait.</li>
-    </ol>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Crop</th><th>Where to get seeds</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Beans</strong></td><td>Drilbur, Pokémon Center shop</td><td>Easiest crop, no watering needed. Used for hamburger steaks.</td></tr>
-          <tr><td><strong>Wheat</strong></td><td>Shop, gifts from Rocky Ridges Pokémon, red Poké Balls</td><td>Used for bread. You need lots for the Rocky Ridges party.</td></tr>
-          <tr><td><strong>Tomatoes</strong></td><td>Unlocks at Bleak Beach Environment Level 3</td><td>Need watering.</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="tip"><strong>Tip:</strong> Keep a <strong>Grow</strong> Pokémon (Bulbasaur, Rowlet) near your farm to make crops grow faster. Rock Smash on wild crops gives you their seeds.</div>
-  </section>
-
-  <!-- HOMES -->
-  <section id="homes">
-    <h2>Homes &amp; Pokémon helpers</h2>
-    <ul>
-      <li><strong>Building kits</strong> are sold in the PC Shop inside any Pokémon Center. Place the kit, add the materials it needs, and have a <strong>Build</strong> Pokémon (like Machop or Timburr) build it.</li>
-      <li>You can also build your own house: walls at least 2 blocks high, a door, and at least 3 pieces of furniture. Up to 4 Pokémon can share a house.</li>
-    </ul>
-    <h3>What each helper does</h3>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Job</th><th>What it does</th><th>Who has it</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Build</strong></td><td>Builds houses and buildings</td><td>Machop, Timburr, Cubone</td></tr>
-          <tr><td><strong>Chop</strong></td><td>Turns logs into lumber</td><td>Scyther, Pinsir</td></tr>
-          <tr><td><strong>Grow</strong></td><td>Makes crops grow faster</td><td>Bulbasaur, Oddish, Rowlet</td></tr>
-          <tr><td><strong>Burn</strong></td><td>Lights fires and ovens, smelts ore</td><td>Charmander, Torchic, Vulpix</td></tr>
-          <tr><td><strong>Crush</strong></td><td>Breaks rocks into stone and ore</td><td>Geodude, Graveler</td></tr>
-          <tr><td><strong>Generate</strong></td><td>Makes electricity</td><td>Pikachu, Pawmi</td></tr>
-          <tr><td><strong>Recycle</strong></td><td>Turns rubbish into iron and paper</td><td>Trubbish</td></tr>
-          <tr><td><strong>Gather</strong></td><td>Picks up items lying around</td><td>Gastly, Espeon</td></tr>
-          <tr><td><strong>Hype</strong></td><td>Gets parties going (needed in Rocky Ridges)</td><td>Cinderace, Raichu, Chatot</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- FRIENDS -->
-  <section id="friends">
-    <h2>Making Pokémon happy</h2>
-    <p>Happy Pokémon raise the area's <strong>Environment Level</strong>, which unlocks new shop items and moves the story along. You need <strong>level 5 in all 4 areas</strong> to finish the game.</p>
-    <h3>See what a Pokémon likes</h3>
-    <p>Open the <strong>Pokédex</strong>, pick the Pokémon and go to the <strong>"Specialties and Likes"</strong> tab. It lists their favourite things (like "Cute stuff" or "Wooden stuff") and their favourite food flavour.</p>
-    <h3>Quick ways to raise happiness</h3>
-    <ul>
-      <li><strong>Help the saddest Pokémon first.</strong> Often a berry, a toy or a bed is enough to cheer one up.</li>
-      <li><strong>Move them into proper houses.</strong> Houses make them happier than open habitats.</li>
-      <li><strong>Decorate with their favourite things</strong>, and remove anything they dislike.</li>
-      <li><strong>Feed them dishes in their favourite flavour.</strong> This works much better than raw food.</li>
-      <li><strong>Do their requests</strong> and play their mini-games.</li>
-      <li><strong>Turn dry mud into grass</strong> with Water Gun and Leafage. Greener land raises the level too.</li>
-    </ul>
-  </section>
-
-  <!-- DECOR -->
-  <section id="decor">
-    <h2>Decorating ideas</h2>
-    <ul>
-      <li><strong>Decorate to their taste:</strong> check each Pokémon's likes and theme their house around them, for example a cosy wooden cottage or a cute pastel room. It looks lovely <em>and</em> makes them happier.</li>
-      <li><strong>Use habitats as decorations:</strong> a picnic set (2 seats, table, picnic basket) makes a cute garden corner and attracts Pikachu. A restaurant setup (seat, table, menu board, plated food) makes a café and attracts Pawmi.</li>
-      <li><strong>Add lights everywhere:</strong> they make things feel cosy, and some habitats need a light.</li>
-      <li><strong>Furniture works indoors and outdoors.</strong> Benches, lamps and flower pots along paths make a town feel lived-in.</li>
-      <li><strong>Recolour things:</strong> later on you can paint items to match a colour theme.</li>
-      <li>Shop stock changes daily, so check the PC Shop often for new furniture.</li>
-    </ul>
-  </section>
-
-  <!-- COINS -->
-  <section id="coins">
-    <h2>Life Coins (money)</h2>
-    <ul>
-      <li>The easiest way to earn coins is <strong>Challenges</strong> on the Pokémon Center PC. Remember to go back to the PC to collect your reward.</li>
-      <li>Do the <strong>Stamp Rally</strong>: get one stamp a day from a PC, then trade in the full card for a big pile of coins.</li>
-      <li>Crafted items sell for more than raw materials.</li>
-      <li>Good first buy: <strong>Packing Tips</strong> from the shop, which give you a bigger bag. New ones appear as you unlock new areas.</li>
-    </ul>
-  </section>
-
-  <!-- COOKING -->
-  <section id="cooking">
-    <h2>Cooking with Chef Dente</h2>
-    <h3>Rescuing Chef Dente (Rocky Ridges)</h3>
-    <ol>
-      <li>Collect 3 <strong>Wheat</strong> from the dry patches near the waterfall.</li>
-      <li>Bake <strong>Simple Bread</strong> in a Bread Oven. You need a fire Pokémon (Burn helper) to light the oven.</li>
-      <li>Eat the bread to power up <strong>Cut</strong>, then cut the chain holding his barrel.</li>
-    </ol>
-    <h3>How food works</h3>
-    <p>Eating a cooked dish <strong>refills all your PP</strong> and <strong>powers up one move</strong>:</p>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Food</th><th>Cooked on</th><th>Main ingredient</th><th>Powers up</th></tr></thead>
-        <tbody>
-          <tr><td>Salad</td><td>Cutting Board</td><td>Leaf</td><td>Leafage (grows grass in a + shape)</td></tr>
-          <tr><td>Soup</td><td>Cooking Pot</td><td>Fresh Water</td><td>Water Gun (bigger spray)</td></tr>
-          <tr><td>Bread</td><td>Bread Oven</td><td>Wheat</td><td>Cut (cuts tougher things, from further away)</td></tr>
-          <tr><td>Hamburger Steak</td><td>Frying Pan</td><td>Bean</td><td>Rock Smash (breaks hard rock, gets gold and iron)</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="must"><strong>Recipes worth knowing</strong>
-      <ul>
-        <li><strong>Simple Salad:</strong> leaf + anything</li>
-        <li><strong>Simple Soup:</strong> fresh water + any 2</li>
-        <li><strong>Simple Bread:</strong> wheat + any 2. Needed to free Chef Dente.</li>
-        <li><strong>Simple Hamburger Steak:</strong> bean + any 3. Needed to break into the legendary caves.</li>
-        <li><strong>Vibrant Hamburger Steak:</strong> bean + potato + salad + any. Gives a bigger Rock Smash boost.</li>
+  <!-- TODAY -->
+  <details class="card" id="today" open>
+    <summary><h2>☀️ Today's to-do</h2></summary>
+    <div class="body">
+      <div class="reset-note" id="reset-note">This list clears itself every morning at 5 AM.</div>
+      <ul class="ticks" data-daily>
+        <li><label><input type="checkbox" data-id="d-mosslax"><span><strong>Feed Mosslax</strong> one dish <small>· Spicy = more Pokémon, Plain = faster friendships (<a href="#mosslax">all buffs</a>)</small></span></label></li>
+        <li><label><input type="checkbox" data-id="d-island"><span><strong>Visit a Dream Island</strong> <small>· pick the doll for what you need (<a href="#islands">which doll?</a>)</small></span></label></li>
+        <li><label><input type="checkbox" data-id="d-stamp"><span><strong>Get your Stamp Rally stamp</strong> at any PC</span></label></li>
+        <li><label><input type="checkbox" data-id="d-pc"><span><strong>Claim PC Challenge rewards</strong> <small>· easy Life Coins</small></span></label></li>
+        <li><label><input type="checkbox" data-id="d-shop"><span><strong>Check the PC Shop</strong> <small>· new stock and building kits every day</small></span></label></li>
+        <li><label><input type="checkbox" data-id="d-farm"><span><strong>Harvest, replant and water crops</strong></span></label></li>
+        <li><label><input type="checkbox" data-id="d-habitats"><span><strong>Check habitats for new Pokémon</strong> <small>· move friends into houses to free up spots</small></span></label></li>
+        <li><label><input type="checkbox" data-id="d-friends"><span><strong>Say hi and give gifts</strong> to a few Pokémon <small>· help the saddest ones first</small></span></label></li>
       </ul>
     </div>
-    <div class="tip"><strong>Tip:</strong> Keep a couple of dishes in your bag at all times. They're your emergency PP refill.</div>
-  </section>
+  </details>
+
+  <!-- FAVOURITES -->
+  <details class="card" id="favs" open>
+    <summary><h2>💖 Bao's favourites</h2></summary>
+    <div class="body">
+      <div id="fav-grid" class="fav-grid"></div>
+      <p class="empty" id="fav-empty">Tap the ☆ next to any Pokémon in the <a href="#collect">Pokémon checklist</a> to pin it here, with where to find it.</p>
+    </div>
+  </details>
+
+  <!-- STORY -->
+  <details class="card" id="story">
+    <summary><h2>🗺️ Story checklist</h2></summary>
+    <div class="body">
+      <div class="progress" id="story-progress"></div>
+      <p>There are 4 story areas. Start in <strong>Withered Wasteland</strong>, then do <strong>Bleak Beach</strong> and <strong>Rocky Ridges</strong> in either order, and finish with <strong>Sparkling Skylands</strong>. Every area follows the same pattern: rebuild its Pokémon Center (needs Environment Level 3), then finish its big request.</p>
+      <p>Gold boxes show the <strong>must-have Pokémon, moves and food</strong> for each area.</p>
+
+      <div class="area">
+        <div class="order">Area 1</div>
+        <h3>Withered Wasteland</h3>
+        <ul class="ticks" data-group="story">
+          <li><label><input type="checkbox" data-id="s1-1"><span>Follow Professor Tangrowth's tutorial.</span></label></li>
+          <li><label><input type="checkbox" data-id="s1-2"><span>Make tall grass habitats to meet Bulbasaur, Squirtle and Charmander.</span></label></li>
+          <li><label><input type="checkbox" data-id="s1-3"><span>Get Scyther (Cut) and Hitmonchan (Rock Smash) to join.</span></label></li>
+          <li><label><input type="checkbox" data-id="s1-4"><span>Reach Environment Level 3 and rebuild the Pokémon Center.</span></label></li>
+          <li><label><input type="checkbox" data-id="s1-5"><span><strong>"Yawn Up a Storm":</strong> find Slowpoke, water the land with Water Gun, grow plants and flowers, and break walls to let the rivers flow. Once it's humid enough, bring Slowpoke over to yawn. <strong>Kyogre</strong> brings rain back.</span></label></li>
+          <li><label><input type="checkbox" data-id="s1-6"><span>Use Rock Smash to rescue Onix. This opens Bleak Beach and Rocky Ridges.</span></label></li>
+        </ul>
+        <div class="must"><strong>Must-haves</strong>
+          <ul>
+            <li><span class="pk" data-dex="7">Squirtle</span> → Water Gun, <span class="pk" data-dex="1">Bulbasaur</span> → Leafage, <span class="pk" data-dex="123">Scyther</span> → Cut, <span class="pk" data-dex="107">Hitmonchan</span> → Rock Smash, <span class="pk" data-dex="529">Drilbur</span> → Rototiller (and free Bean Seeds)</li>
+            <li><span class="pk" data-dex="532">Timburr</span> or <span class="pk" data-dex="66">Machop</span> as builders (4 tall grass + 1 big boulder)</li>
+            <li><span class="pk" data-dex="79">Slowpoke</span> for the story (4 tall grass + 2 ocean water)</li>
+            <li><span class="pk" data-dex="4">Charmander</span> to light fires and ovens</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="area">
+        <div class="order">Area 2 (or 3)</div>
+        <h3>Bleak Beach</h3>
+        <ul class="ticks" data-group="story">
+          <li><label><input type="checkbox" data-id="s2-1"><span>Stack blocks to fix the fountain and drain the Pokémon Center, then rebuild it.</span></label></li>
+          <li><label><input type="checkbox" data-id="s2-2"><span>Make habitats for Torchic and Piplup, and help Meowth fix its house.</span></label></li>
+          <li><label><input type="checkbox" data-id="s2-3"><span><strong>"Brighten Things Up":</strong> use Pawmi to restore power. Torchic runs the furnace and Piplup turns the waterwheel. With Peakychu, put up lights and connect power poles until the town is bright.</span></label></li>
+          <li><label><input type="checkbox" data-id="s2-4"><span>Break the wall near Trubbish to find the sleeping <strong>Mosslax</strong>.</span></label></li>
+          <li><label><input type="checkbox" data-id="s2-5"><span><strong>Raikou</strong> brings thunder and wakes Mosslax. Climb the cliff to talk to Raikou.</span></label></li>
+        </ul>
+        <div class="must"><strong>Must-haves</strong>
+          <ul>
+            <li><span class="pk" data-dex="131">Lapras</span> → Surf (1 big palm tree + 4 hedges + 2 ocean water). Lapras may only show up after you leave and come back.</li>
+            <li><span class="pk" data-dex="570">Zorua</span> → Camouflage (4 seashore flowers)</li>
+            <li><span class="pk" data-dex="921">Pawmi</span> for electricity (4 seashore flowers, or a seat + table + menu board + plated food)</li>
+            <li><span class="pk" data-dex="255">Torchic</span> (wooden birdhouse + table + plated food) and <span class="pk" data-dex="393">Piplup</span> (4 yellow tall grass + 2 water)</li>
+            <li><span class="pk" data-dex="568">Trubbish</span> (waste bin + sign + garbage bags). It turns trash into iron and paper.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="area">
+        <div class="order">Area 3 (or 2)</div>
+        <h3>Rocky Ridges</h3>
+        <ul class="ticks" data-group="story">
+          <li><label><input type="checkbox" data-id="s3-1"><span>Plant red tall grass to meet Scorbunny.</span></label></li>
+          <li><label><input type="checkbox" data-id="s3-2"><span>Make a training field (4 red tall grass + 2 sandbags) to get <strong>Machoke</strong>. Use its <strong>Strength</strong> to push the Pokémon Center back into place.</span></label></li>
+          <li><label><input type="checkbox" data-id="s3-3"><span>Rescue <strong>Chef Dente</strong> with bread (see <a href="#cooking">Cooking</a>). This unlocks cooking.</span></label></li>
+          <li><label><input type="checkbox" data-id="s3-4"><span><strong>"Time to Party":</strong> find DJ Rotom in the tunnel and give it a CD. Then put out a Party Pot, display an appraised relic, bring a Hype Pokémon, and fill 5 Party Platters with different dishes.</span></label></li>
+          <li><label><input type="checkbox" data-id="s3-5"><span>For the final meal, bring <strong>15 Leppa Berries, 15 Wheat, 15 Beans and 5 Honey</strong>, plus 5 Pokémon including Chef Dente.</span></label></li>
+          <li><label><input type="checkbox" data-id="s3-6"><span><strong>Volcanion</strong> sets off fireworks. Talk to it at the mountain top.</span></label></li>
+        </ul>
+        <div class="must"><strong>Must-haves</strong>
+          <ul>
+            <li><span class="pk" data-dex="67">Machoke</span> → Strength. <span class="pk" data-dex="75">Graveler</span> → Rollout (4 moss + 1 mossy boulder)</li>
+            <li><span class="pk" data-dex="820">Chef Dente</span>: cooking is a huge help from here on</li>
+            <li><span class="pk" data-dex="272">Ludicolo</span> / Lotad for the party (4 duckweed + 2 water)</li>
+            <li><strong>Start growing Wheat and Beans now</strong>, because the party needs 15 of each</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="area">
+        <div class="order">Area 4 (last)</div>
+        <h3>Sparkling Skylands</h3>
+        <p>Opens after you've met Kyogre, Raikou and Volcanion.</p>
+        <ul class="ticks" data-group="story">
+          <li><label><input type="checkbox" data-id="s4-1"><span>Take the elevator up to the floating ruins and rebuild the Pokémon Center.</span></label></li>
+          <li><label><input type="checkbox" data-id="s4-2"><span>Get <strong>Dragonite</strong> (canoe + 2 duckweed + 2 water, up high). It asks for 5 alarm clocks, then teaches <strong>Glide</strong>.</span></label></li>
+          <li><label><input type="checkbox" data-id="s4-3"><span><strong>2F:</strong> 25 Concrete, 10 Glass, 5 Pokémetal, 10 Iron Ingots</span></label></li>
+          <li><label><input type="checkbox" data-id="s4-4"><span><strong>3F:</strong> 25 Concrete, 10 Glass, 10 Glowing Stone, 15 Copper Ingots. Bring Chef Dente.</span></label></li>
+          <li><label><input type="checkbox" data-id="s4-5"><span><strong>4F:</strong> 40 Concrete, 15 Glass, 10 Paper, 10 Bricks, 20 Lumber. Bring Peakychu.</span></label></li>
+          <li><label><input type="checkbox" data-id="s4-6"><span>Go to the roof to meet <strong>Mewtwo</strong>.</span></label></li>
+        </ul>
+        <div class="must"><strong>Must-haves</strong>
+          <ul>
+            <li><span class="pk" data-dex="149">Dragonite</span> → Glide. <span class="pk" data-dex="130">Gyarados</span> → Waterfall (a better Surf)</li>
+            <li><span class="pk" data-dex="656">Froakie</span> (4 pink tall grass + 2 water)</li>
+            <li>Lots of builders: the floors need 6, then 10, then 15 Pokémon helping</li>
+            <li>Save up iron, copper, paper and bricks before you start (see <a href="#materials">Materials</a>)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- POKÉMON CHECKLIST -->
+  <details class="card" id="collect">
+    <summary><h2>📋 Pokémon checklist</h2></summary>
+    <div class="body">
+      <div class="progress" id="poke-progress"></div>
+      <p>Tick them off as you find them. Tap ☆ to add one to <a href="#favs">Bao's favourites</a>.</p>
+      <h3>Story &amp; helpers</h3>
+      <ul class="poke-list" id="poke-story"></ul>
+      <h3>Legendaries</h3>
+      <ul class="poke-list" id="poke-legend"></ul>
+      <h3>Cute extras</h3>
+      <ul class="poke-list" id="poke-extra"></ul>
+    </div>
+  </details>
+
+  <!-- FIRST STEPS -->
+  <details class="card" id="start">
+    <summary><h2>🌱 First steps</h2></summary>
+    <div class="body">
+      <ul>
+        <li><strong>Change the camera:</strong> in Settings, set the camera distance to <strong>Far</strong> so you can see more while building.</li>
+        <li><strong>Try Mouse Mode:</strong> turn it on in Settings, then lay the right Joy-Con flat on a table and use it like a mouse. It makes placing blocks much easier.</li>
+        <li><strong>Placing blocks:</strong> hold <strong>A</strong> to keep placing blocks in a row. Hold <strong>ZL</strong> to walk sideways while you place, which makes straight walls easy.</li>
+        <li><strong>The day resets at 5 AM.</strong> Shop stock, Mosslax's buff and your Dream Island trip all refresh then.</li>
+        <li><strong>Pick up everything:</strong> press <strong>Y</strong> to grab small bits on the ground. Wood scraps, stones and seeds add up fast.</li>
+      </ul>
+      <div class="tip"><strong>Tip:</strong> Learn new moves and follow the story before spending a lot of time decorating. Each move opens up new things to do.</div>
+    </div>
+  </details>
+
+  <!-- MOVES -->
+  <details class="card" id="moves">
+    <summary><h2>✨ Moves Ditto can learn</h2></summary>
+    <div class="body">
+      <p>You play as Ditto, and you learn moves by copying Pokémon you meet. Moves use <strong>PP</strong>, which works like energy. Eat food to refill it.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Move</th><th>Who teaches it</th><th>What it's for</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Water Gun</strong></td><td><span class="pk" data-dex="7">Squirtle</span></td><td>Brings dry ground and dead plants back to life</td></tr>
+            <tr><td><strong>Leafage</strong></td><td><span class="pk" data-dex="1">Bulbasaur</span></td><td>Grows tall grass</td></tr>
+            <tr><td><strong>Cut</strong></td><td><span class="pk" data-dex="123">Scyther</span></td><td>Chops trees, weeds and wood</td></tr>
+            <tr><td><strong>Rock Smash</strong></td><td><span class="pk" data-dex="107">Hitmonchan</span></td><td>Breaks rocks and blocks</td></tr>
+            <tr><td><strong>Rototiller</strong></td><td><span class="pk" data-dex="529">Drilbur</span></td><td>Makes farm plots, and moves plants without breaking them</td></tr>
+            <tr><td><strong>Jump</strong></td><td><span class="pk" data-dex="129">Magikarp</span></td><td>Jump higher</td></tr>
+            <tr><td><strong>Surf</strong></td><td><span class="pk" data-dex="131">Lapras</span> (Bleak Beach)</td><td>Swim across water</td></tr>
+            <tr><td><strong>Camouflage</strong></td><td><span class="pk" data-dex="570">Zorua</span> (Bleak Beach)</td><td>Disguise yourself as an object</td></tr>
+            <tr><td><strong>Strength</strong></td><td><span class="pk" data-dex="67">Machoke</span> (Rocky Ridges)</td><td>Push heavy things</td></tr>
+            <tr><td><strong>Rollout</strong></td><td><span class="pk" data-dex="75">Graveler</span> (Rocky Ridges)</td><td>Roll around fast</td></tr>
+            <tr><td><strong>Glide</strong></td><td><span class="pk" data-dex="149">Dragonite</span> (Skylands)</td><td>Press R in the air to glide</td></tr>
+            <tr><td><strong>Waterfall</strong></td><td><span class="pk" data-dex="130">Gyarados</span> (Skylands)</td><td>Upgrades Surf</td></tr>
+            <tr><td><strong>Magnet Rise</strong></td><td><span class="pk" data-dex="81">Magnemite</span> (late game)</td><td>Float while building and place lots of blocks at once</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <!-- HABITATS -->
+  <details class="card" id="habitats">
+    <summary><h2>🌼 Habitats: how to get Pokémon</h2></summary>
+    <div class="body">
+      <p>Put certain things near each other, such as grass, flowers, trees or water, and Pokémon will come to live there. They don't need to be placed exactly. A sparkle means it worked. You can see every recipe you've found in the <strong>Habitat Dex</strong> in your Pokédex.</p>
+
+      <h3>Withered Wasteland</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Make this</th><th>To attract</th></tr></thead>
+          <tbody>
+            <tr><td>4 tall grass</td><td>Bulbasaur, Squirtle, Charmander, Oddish, Geodude</td></tr>
+            <tr><td>4 tall grass + 1 big tree</td><td>Scyther, Bellsprout, Skwovet, Pinsir</td></tr>
+            <tr><td>4 tall grass + 1 big boulder</td><td>Machop, Timburr</td></tr>
+            <tr><td>4 tall grass + 2 water</td><td>Squirtle, Wartortle, Cramorant</td></tr>
+            <tr><td>4 tall grass + 2 ocean water</td><td>Slowpoke</td></tr>
+            <tr><td>4 tall grass up high</td><td>Pidgey, Hoothoot</td></tr>
+            <tr><td>4 tall grass + 1 light</td><td>Venonat</td></tr>
+            <tr><td>4 wildflowers</td><td>Eevee, Combee, Pidgey</td></tr>
+            <tr><td>8 wildflowers</td><td>Vespiquen, Ivysaur</td></tr>
+            <tr><td>4 wildflowers + 1 gravestone</td><td>Cubone</td></tr>
+            <tr><td>8 vegetable plots</td><td>Drilbur, Rowlet</td></tr>
+            <tr><td>2 seats + 1 table + 1 picnic basket</td><td>Pikachu, Pichu</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Bleak Beach</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Make this</th><th>To attract</th></tr></thead>
+          <tbody>
+            <tr><td>4 yellow tall grass + 2 water</td><td>Piplup, Azurill, Marill</td></tr>
+            <tr><td>4 seashore flowers</td><td>Pawmi, Zorua</td></tr>
+            <tr><td>1 big palm tree + 4 hedges + 2 ocean water</td><td>Lapras</td></tr>
+            <tr><td>Wooden birdhouse + table + plated food</td><td>Torchic</td></tr>
+            <tr><td>Big palm tree + seat + plated food + lit campfire</td><td>Torchic, Growlithe</td></tr>
+            <tr><td>Seat + table + menu board + plated food</td><td>Pawmi, Pawmo</td></tr>
+            <tr><td>Waste bin + sign + garbage bags</td><td>Trubbish, Koffing</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Rocky Ridges</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Make this</th><th>To attract</th></tr></thead>
+          <tbody>
+            <tr><td>4 red tall grass</td><td>Scorbunny, Riolu, Kricketot</td></tr>
+            <tr><td>4 red tall grass + 2 sandbags</td><td>Machoke, Machamp</td></tr>
+            <tr><td>Punching bag + table + CD player</td><td>Machoke, Riolu, Lucario</td></tr>
+            <tr><td>4 duckweed + 2 water</td><td>Lotad, Ludicolo</td></tr>
+            <tr><td>4 moss + 1 mossy boulder</td><td>Graveler, Golem</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Sparkling Skylands</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Make this</th><th>To attract</th></tr></thead>
+          <tbody>
+            <tr><td>4 pink tall grass + 2 water</td><td>Froakie, Frogadier</td></tr>
+            <tr><td>Canoe + 2 duckweed + 2 water, up high</td><td>Dragonite</td></tr>
+            <tr><td>4 Skyland flowers</td><td>Rookidee</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tip"><strong>Tip:</strong> A habitat only holds one Pokémon at a time. Once you've made friends with it, move it into a house so a new Pokémon can show up there. Rare Pokémon can take a while, so check back the next day.</div>
+    </div>
+  </details>
+
+  <!-- MATERIALS -->
+  <details class="card" id="materials">
+    <summary><h2>🪵 Where to get materials</h2></summary>
+    <div class="body">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Material</th><th>How to get it</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Lumber</strong></td><td>Use Cut on trees and logs to get Small Logs. Give 10 logs to a <strong>Chop</strong> Pokémon (Scyther, Pinsir) and you get 50 Lumber back. Much faster than picking up scraps.</td></tr>
+            <tr><td><strong>Stone</strong></td><td>Use Rock Smash on any grey rock. Works everywhere.</td></tr>
+            <tr><td><strong>Iron Ore</strong></td><td>Mine it in Rocky Ridges, Rock Smash piles of metal, or give rubbish to a <strong>Recycle</strong> Pokémon like Trubbish.</td></tr>
+            <tr><td><strong>Gold / Copper Ore</strong></td><td>Dream Islands (Arcanine and Clefairy dolls), or hard rocks after a Hamburger Steak.</td></tr>
+            <tr><td><strong>Bricks</strong></td><td>Give Squishy Clay to a fire Pokémon.</td></tr>
+            <tr><td><strong>Paper</strong></td><td>Give Wastepaper to a Recycle Pokémon.</td></tr>
+            <tr><td><strong>Ingots</strong></td><td>Build a furnace and smelt ore with a fire Pokémon.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tip"><strong>Tip:</strong> In every new area, make friends with at least one Chop, Crush, Burn and Recycle Pokémon early. Then you'll never get stuck waiting on a material.</div>
+    </div>
+  </details>
+
+  <!-- FARMING -->
+  <details class="card" id="farming">
+    <summary><h2>🌾 Farming</h2></summary>
+    <div class="body">
+      <ol>
+        <li>Help <strong>Drilbur</strong> in eastern Withered Wasteland. It teaches <strong>Rototiller</strong> and gives you 5 Bean Seeds.</li>
+        <li>Use Rototiller on grass or dirt to make a farm plot.</li>
+        <li>Hold the seeds from your bag, aim at the plot and press <strong>A</strong> to plant them.</li>
+        <li>Water them with Water Gun if they need it, then wait.</li>
+      </ol>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Crop</th><th>Where to get seeds</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Beans</strong></td><td>Drilbur, Pokémon Center shop</td><td>Easiest crop, no watering needed. Used for hamburger steaks.</td></tr>
+            <tr><td><strong>Wheat</strong></td><td>Shop, gifts from Rocky Ridges Pokémon, red Poké Balls</td><td>Used for bread. You need lots for the Rocky Ridges party.</td></tr>
+            <tr><td><strong>Tomatoes</strong></td><td>Unlocks at Bleak Beach Environment Level 3</td><td>Need watering.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tip"><strong>Tip:</strong> Keep a <strong>Grow</strong> Pokémon (Bulbasaur, Rowlet) near your farm to make crops grow faster. Rock Smash on wild crops gives you their seeds.</div>
+    </div>
+  </details>
+
+  <!-- HOMES -->
+  <details class="card" id="homes">
+    <summary><h2>🏡 Homes &amp; Pokémon helpers</h2></summary>
+    <div class="body">
+      <ul>
+        <li><strong>Building kits</strong> are sold in the PC Shop inside any Pokémon Center. Place the kit, add the materials it needs, and have a <strong>Build</strong> Pokémon (like Machop or Timburr) build it.</li>
+        <li>You can also build your own house: walls at least 2 blocks high, a door, and at least 3 pieces of furniture. Up to 4 Pokémon can share a house.</li>
+      </ul>
+      <h3>What each helper does</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Job</th><th>What it does</th><th>Who has it</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Build</strong></td><td>Builds houses and buildings</td><td>Machop, Timburr, Cubone</td></tr>
+            <tr><td><strong>Chop</strong></td><td>Turns logs into lumber</td><td>Scyther, Pinsir</td></tr>
+            <tr><td><strong>Grow</strong></td><td>Makes crops grow faster</td><td>Bulbasaur, Oddish, Rowlet</td></tr>
+            <tr><td><strong>Burn</strong></td><td>Lights fires and ovens, smelts ore</td><td>Charmander, Torchic, Vulpix</td></tr>
+            <tr><td><strong>Crush</strong></td><td>Breaks rocks into stone and ore</td><td>Geodude, Graveler</td></tr>
+            <tr><td><strong>Generate</strong></td><td>Makes electricity</td><td>Pikachu, Pawmi</td></tr>
+            <tr><td><strong>Recycle</strong></td><td>Turns rubbish into iron and paper</td><td>Trubbish</td></tr>
+            <tr><td><strong>Gather</strong></td><td>Picks up items lying around</td><td>Gastly, Espeon</td></tr>
+            <tr><td><strong>Hype</strong></td><td>Gets parties going (needed in Rocky Ridges)</td><td>Cinderace, Raichu, Chatot</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <!-- HAPPINESS -->
+  <details class="card" id="friends">
+    <summary><h2>😊 Making Pokémon happy</h2></summary>
+    <div class="body">
+      <p>Happy Pokémon raise the area's <strong>Environment Level</strong>, which unlocks new shop items and moves the story along. You need <strong>level 5 in all 4 areas</strong> to finish the game.</p>
+      <h3>See what a Pokémon likes</h3>
+      <p>Open the <strong>Pokédex</strong>, pick the Pokémon and go to the <strong>"Specialties and Likes"</strong> tab. It lists their favourite things (like "Cute stuff" or "Wooden stuff") and their favourite food flavour.</p>
+      <h3>Quick ways to raise happiness</h3>
+      <ul>
+        <li><strong>Help the saddest Pokémon first.</strong> Often a berry, a toy or a bed is enough to cheer one up.</li>
+        <li><strong>Move them into proper houses.</strong> Houses make them happier than open habitats.</li>
+        <li><strong>Decorate with their favourite things</strong>, and remove anything they dislike.</li>
+        <li><strong>Feed them dishes in their favourite flavour.</strong> This works much better than raw food.</li>
+        <li><strong>Do their requests</strong> and play their mini-games.</li>
+        <li><strong>Turn dry mud into grass</strong> with Water Gun and Leafage. Greener land raises the level too.</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- DECOR -->
+  <details class="card" id="decor">
+    <summary><h2>🎀 Decorating ideas</h2></summary>
+    <div class="body">
+      <ul>
+        <li><strong>Decorate to their taste:</strong> check each Pokémon's likes and theme their house around them, for example a cosy wooden cottage or a cute pastel room. It looks lovely <em>and</em> makes them happier.</li>
+        <li><strong>Use habitats as decorations:</strong> a picnic set (2 seats, table, picnic basket) makes a cute garden corner and attracts Pikachu. A restaurant setup (seat, table, menu board, plated food) makes a café and attracts Pawmi.</li>
+        <li><strong>Add lights everywhere:</strong> they make things feel cosy, and some habitats need a light.</li>
+        <li><strong>Furniture works indoors and outdoors.</strong> Benches, lamps and flower pots along paths make a town feel lived-in.</li>
+        <li><strong>Recolour things:</strong> later on you can paint items to match a colour theme.</li>
+        <li>Shop stock changes daily, so check the PC Shop often for new furniture.</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- COINS -->
+  <details class="card" id="coins">
+    <summary><h2>🪙 Life Coins (money)</h2></summary>
+    <div class="body">
+      <ul>
+        <li>The easiest way to earn coins is <strong>Challenges</strong> on the Pokémon Center PC. Remember to go back to the PC to collect your reward.</li>
+        <li>Do the <strong>Stamp Rally</strong>: get one stamp a day from a PC, then trade in the full card for a big pile of coins.</li>
+        <li>Crafted items sell for more than raw materials.</li>
+        <li>Good first buy: <strong>Packing Tips</strong> from the shop, which give you a bigger bag. New ones appear as you unlock new areas.</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- COOKING -->
+  <details class="card" id="cooking">
+    <summary><h2>🍞 Cooking with Chef Dente</h2></summary>
+    <div class="body">
+      <h3>Rescuing <span class="pk" data-dex="820">Chef Dente</span> (Rocky Ridges)</h3>
+      <ol>
+        <li>Collect 3 <strong>Wheat</strong> from the dry patches near the waterfall.</li>
+        <li>Bake <strong>Simple Bread</strong> in a Bread Oven. You need a fire Pokémon (Burn helper) to light the oven.</li>
+        <li>Eat the bread to power up <strong>Cut</strong>, then cut the chain holding his barrel.</li>
+      </ol>
+      <h3>How food works</h3>
+      <p>Eating a cooked dish <strong>refills all your PP</strong> and <strong>powers up one move</strong>:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Food</th><th>Cooked on</th><th>Main ingredient</th><th>Powers up</th></tr></thead>
+          <tbody>
+            <tr><td>Salad</td><td>Cutting Board</td><td>Leaf</td><td>Leafage (grows grass in a + shape)</td></tr>
+            <tr><td>Soup</td><td>Cooking Pot</td><td>Fresh Water</td><td>Water Gun (bigger spray)</td></tr>
+            <tr><td>Bread</td><td>Bread Oven</td><td>Wheat</td><td>Cut (cuts tougher things, from further away)</td></tr>
+            <tr><td>Hamburger Steak</td><td>Frying Pan</td><td>Bean</td><td>Rock Smash (breaks hard rock, gets gold and iron)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="must"><strong>Recipes worth knowing</strong>
+        <ul>
+          <li><strong>Simple Salad:</strong> leaf + anything</li>
+          <li><strong>Simple Soup:</strong> fresh water + any 2</li>
+          <li><strong>Simple Bread:</strong> wheat + any 2. Needed to free Chef Dente.</li>
+          <li><strong>Simple Hamburger Steak:</strong> bean + any 3. Needed to break into the legendary caves.</li>
+          <li><strong>Vibrant Hamburger Steak:</strong> bean + potato + salad + any. Gives a bigger Rock Smash boost.</li>
+        </ul>
+      </div>
+      <div class="tip"><strong>Tip:</strong> Keep a couple of dishes in your bag at all times. They're your emergency PP refill.</div>
+    </div>
+  </details>
 
   <!-- MOSSLAX -->
-  <section id="mosslax">
-    <h2>Mosslax's daily treat</h2>
-    <p>After the Bleak Beach story, you can leave one dish a day at Mosslax's altar. The dish's flavour decides what bonus you get for the rest of the day:</p>
-    <ul>
-      <li><strong>Spicy:</strong> more Pokémon show up in habitats (great when hunting new ones)</li>
-      <li><strong>Sweet:</strong> find more ancient artefacts when digging</li>
-      <li><strong>Bitter:</strong> more rare items</li>
-      <li><strong>Dry:</strong> more rare bird Pokémon (Mosslax's favourite)</li>
-      <li><strong>Sour:</strong> better items in the shop</li>
-      <li><strong>Plain:</strong> make friends with Pokémon faster</li>
-    </ul>
-  </section>
+  <details class="card" id="mosslax">
+    <summary><h2>🍽️ Mosslax's daily treat</h2></summary>
+    <div class="body">
+      <p>After the Bleak Beach story, you can leave one dish a day at Mosslax's altar. The dish's flavour decides what bonus you get for the rest of the day:</p>
+      <ul>
+        <li><strong>Spicy:</strong> more Pokémon show up in habitats (great when hunting new ones)</li>
+        <li><strong>Sweet:</strong> find more ancient artefacts when digging</li>
+        <li><strong>Bitter:</strong> more rare items</li>
+        <li><strong>Dry:</strong> more rare bird Pokémon (Mosslax's favourite)</li>
+        <li><strong>Sour:</strong> better items in the shop</li>
+        <li><strong>Plain:</strong> make friends with Pokémon faster</li>
+      </ul>
+    </div>
+  </details>
 
   <!-- DREAM ISLANDS -->
-  <section id="islands">
-    <h2>Dream Islands</h2>
-    <p>These are bonus islands full of materials, with a small chance of legendary Pokémon.</p>
-    <ol>
-      <li>Find <strong>Drifloon</strong> on the west beach of Withered Wasteland.</li>
-      <li>Make its habitat: place <strong>3 campfires</strong> side by side and have a fire Pokémon light them.</li>
-      <li>To travel, put a <strong>doll</strong> on the ground and look at it. Drifloon flies you to that doll's island.</li>
-    </ol>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Doll</th><th>Island</th><th>Good for</th><th>Legendary</th></tr></thead>
-        <tbody>
-          <tr><td>Eevee</td><td>Wasteland</td><td>Leppa Berries, Vine Rope</td><td>Suicune</td></tr>
-          <tr><td>Pikachu</td><td>Ocean</td><td>Twine, Seashells</td><td>Raikou</td></tr>
-          <tr><td>Clefairy</td><td>Rock Peak</td><td>Copper Ore, Limestone</td><td>None</td></tr>
-          <tr><td>Arcanine</td><td>Volcanic</td><td>Iron &amp; Gold Ore</td><td>Entei</td></tr>
-          <tr><td>Dragonite</td><td>Sky</td><td>Pokémetal, Crystals</td><td>None</td></tr>
-          <tr><td>Ditto / Substitute</td><td>Random</td><td>A bit of everything</td><td>Ditto Doll: Entei, Suicune or Mewtwo</td></tr>
-        </tbody>
-      </table>
+  <details class="card" id="islands">
+    <summary><h2>🎈 Dream Islands</h2></summary>
+    <div class="body">
+      <p>These are bonus islands full of materials, with a small chance of legendary Pokémon.</p>
+      <ol>
+        <li>Find <span class="pk" data-dex="425">Drifloon</span> on the west beach of Withered Wasteland.</li>
+        <li>Make its habitat: place <strong>3 campfires</strong> side by side and have a fire Pokémon light them.</li>
+        <li>To travel, put a <strong>doll</strong> on the ground and look at it. Drifloon flies you to that doll's island.</li>
+      </ol>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Doll</th><th>Island</th><th>Good for</th><th>Legendary</th></tr></thead>
+          <tbody>
+            <tr><td>Eevee</td><td>Wasteland</td><td>Leppa Berries, Vine Rope</td><td>Suicune</td></tr>
+            <tr><td>Pikachu</td><td>Ocean</td><td>Twine, Seashells</td><td>Raikou</td></tr>
+            <tr><td>Clefairy</td><td>Rock Peak</td><td>Copper Ore, Limestone</td><td>None</td></tr>
+            <tr><td>Arcanine</td><td>Volcanic</td><td>Iron &amp; Gold Ore</td><td>Entei</td></tr>
+            <tr><td>Dragonite</td><td>Sky</td><td>Pokémetal, Crystals</td><td>None</td></tr>
+            <tr><td>Ditto / Substitute</td><td>Random</td><td>A bit of everything</td><td>Ditto Doll: Entei, Suicune or Mewtwo</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tip"><strong>Tip:</strong> You only get <strong>one island a day</strong>. You can go back as often as you like, but things don't grow back until tomorrow. Empty your bag before you go! Need copper for Skylands 3F? Use the Clefairy Doll.</div>
+      <p>Legendaries are rare. Some hide in caves you have to break into, so eat a <strong>Hamburger Steak</strong> first to power up Rock Smash.</p>
     </div>
-    <div class="tip"><strong>Tip:</strong> You only get <strong>one island a day</strong>. You can go back as often as you like, but things don't grow back until tomorrow. Empty your bag before you go! Need copper for Skylands 3F? Use the Clefairy Doll.</div>
-    <p>Legendaries are rare. Some hide in caves you have to break into, so eat a <strong>Hamburger Steak</strong> first to power up Rock Smash.</p>
-  </section>
+  </details>
 
   <!-- ENDING -->
-  <section id="ending">
-    <h2>Getting ready for the ending</h2>
-    <p>The final task is the <strong>Team Initiation Challenge</strong>: 9 deliveries in a row. Collecting these while you play saves a lot of grinding at the end.</p>
-    <ol>
-      <li>5 Leppa Berries</li>
-      <li>10 Beans, 10 Tomatoes, 10 Wheat</li>
-      <li>20 Lumber, 5 Fluff, 10 Paper</li>
-      <li>40 Bricks, 20 Gold Ingots, 50 Concrete</li>
-      <li>50 electricity connected to the building, 10 Crystal Fragments, 5 Tinkagears</li>
-      <li>4 Industrial Beds, 4 Resort Lights, 4 Office Desks</li>
-      <li>Washing Machine, Refrigerator, Game Boy, plus Environment Level 5 in Bleak Beach, Rocky Ridges and Skylands</li>
-      <li>1 Cherished Photo (any photo from your album)</li>
-      <li>2 Party Poppers, plus Environment Level 5 in Withered Wasteland</li>
-    </ol>
-  </section>
+  <details class="card" id="ending">
+    <summary><h2>🏁 Getting ready for the ending</h2></summary>
+    <div class="body">
+      <div class="progress" id="ending-progress"></div>
+      <p>The final task is the <strong>Team Initiation Challenge</strong>: 9 deliveries in a row. Tick things off as you collect them while you play, to save a lot of grinding at the end.</p>
+      <ul class="ticks" data-group="ending">
+        <li><label><input type="checkbox" data-id="e-1"><span><strong>1.</strong> 5 Leppa Berries</span></label></li>
+        <li><label><input type="checkbox" data-id="e-2"><span><strong>2.</strong> 10 Beans, 10 Tomatoes, 10 Wheat</span></label></li>
+        <li><label><input type="checkbox" data-id="e-3"><span><strong>3.</strong> 20 Lumber, 5 Fluff, 10 Paper</span></label></li>
+        <li><label><input type="checkbox" data-id="e-4"><span><strong>4.</strong> 40 Bricks, 20 Gold Ingots, 50 Concrete</span></label></li>
+        <li><label><input type="checkbox" data-id="e-5"><span><strong>5.</strong> 50 electricity connected to the building, 10 Crystal Fragments, 5 Tinkagears</span></label></li>
+        <li><label><input type="checkbox" data-id="e-6"><span><strong>6.</strong> 4 Industrial Beds, 4 Resort Lights, 4 Office Desks</span></label></li>
+        <li><label><input type="checkbox" data-id="e-7"><span><strong>7.</strong> Washing Machine, Refrigerator, Game Boy, plus Environment Level 5 in Bleak Beach, Rocky Ridges and Skylands</span></label></li>
+        <li><label><input type="checkbox" data-id="e-8"><span><strong>8.</strong> 1 Cherished Photo (any photo from your album)</span></label></li>
+        <li><label><input type="checkbox" data-id="e-9"><span><strong>9.</strong> 2 Party Poppers, plus Environment Level 5 in Withered Wasteland</span></label></li>
+      </ul>
+    </div>
+  </details>
 
-  <!-- CHECKLIST -->
-  <section id="collect">
-    <h2>Pokémon checklist</h2>
-    <p>Important Pokémon to find. Tick them off as you go (your ticks are saved on this device).</p>
-    <div class="count" id="count"></div>
-    <ul class="checklist" id="checklist">
-      <li><label><input type="checkbox" data-id="squirtle"><span>Squirtle <small>· Water Gun</small></span></label></li>
-      <li><label><input type="checkbox" data-id="bulbasaur"><span>Bulbasaur <small>· Leafage, Grow</small></span></label></li>
-      <li><label><input type="checkbox" data-id="charmander"><span>Charmander <small>· Burn helper</small></span></label></li>
-      <li><label><input type="checkbox" data-id="scyther"><span>Scyther <small>· Cut, Chop</small></span></label></li>
-      <li><label><input type="checkbox" data-id="hitmonchan"><span>Hitmonchan <small>· Rock Smash</small></span></label></li>
-      <li><label><input type="checkbox" data-id="drilbur"><span>Drilbur <small>· Rototiller</small></span></label></li>
-      <li><label><input type="checkbox" data-id="timburr"><span>Timburr or Machop <small>· Build</small></span></label></li>
-      <li><label><input type="checkbox" data-id="slowpoke"><span>Slowpoke <small>· story</small></span></label></li>
-      <li><label><input type="checkbox" data-id="geodude"><span>Geodude <small>· Crush</small></span></label></li>
-      <li><label><input type="checkbox" data-id="magikarp"><span>Magikarp <small>· Jump</small></span></label></li>
-      <li><label><input type="checkbox" data-id="pikachu"><span>Pikachu <small>· Generate</small></span></label></li>
-      <li><label><input type="checkbox" data-id="drifloon"><span>Drifloon <small>· Dream Islands</small></span></label></li>
-      <li><label><input type="checkbox" data-id="lapras"><span>Lapras <small>· Surf</small></span></label></li>
-      <li><label><input type="checkbox" data-id="zorua"><span>Zorua <small>· Camouflage</small></span></label></li>
-      <li><label><input type="checkbox" data-id="pawmi"><span>Pawmi <small>· electricity</small></span></label></li>
-      <li><label><input type="checkbox" data-id="torchic"><span>Torchic <small>· story, Burn</small></span></label></li>
-      <li><label><input type="checkbox" data-id="piplup"><span>Piplup <small>· story</small></span></label></li>
-      <li><label><input type="checkbox" data-id="trubbish"><span>Trubbish <small>· Recycle</small></span></label></li>
-      <li><label><input type="checkbox" data-id="scorbunny"><span>Scorbunny <small>· story</small></span></label></li>
-      <li><label><input type="checkbox" data-id="machoke"><span>Machoke <small>· Strength</small></span></label></li>
-      <li><label><input type="checkbox" data-id="graveler"><span>Graveler <small>· Rollout</small></span></label></li>
-      <li><label><input type="checkbox" data-id="ludicolo"><span>Lotad / Ludicolo <small>· party</small></span></label></li>
-      <li><label><input type="checkbox" data-id="dente"><span>Chef Dente <small>· cooking</small></span></label></li>
-      <li><label><input type="checkbox" data-id="froakie"><span>Froakie <small>· Skylands</small></span></label></li>
-      <li><label><input type="checkbox" data-id="dragonite"><span>Dragonite <small>· Glide</small></span></label></li>
-      <li><label><input type="checkbox" data-id="gyarados"><span>Gyarados <small>· Waterfall</small></span></label></li>
-      <li><label><input type="checkbox" data-id="kyogre"><span>Kyogre <small>· story legendary</small></span></label></li>
-      <li><label><input type="checkbox" data-id="raikou"><span>Raikou <small>· legendary</small></span></label></li>
-      <li><label><input type="checkbox" data-id="volcanion"><span>Volcanion <small>· story legendary</small></span></label></li>
-      <li><label><input type="checkbox" data-id="mewtwo"><span>Mewtwo <small>· legendary</small></span></label></li>
-      <li><label><input type="checkbox" data-id="suicune"><span>Suicune <small>· Dream Island</small></span></label></li>
-      <li><label><input type="checkbox" data-id="entei"><span>Entei <small>· Dream Island</small></span></label></li>
-    </ul>
-  </section>
+  <!-- INSTALL -->
+  <details class="card" id="app">
+    <summary><h2>📱 Put this on your home screen</h2></summary>
+    <div class="body install">
+      <p>Add it to your home screen and it opens like an app, even without internet.</p>
+      <ul>
+        <li><strong>iPhone (Safari):</strong> tap the Share button → <strong>Add to Home Screen</strong>.</li>
+        <li><strong>Android (Chrome):</strong> tap the ⋮ menu → <strong>Add to Home screen</strong> or <strong>Install app</strong>.</li>
+      </ul>
+      <p>Your ticks and favourites are saved on this phone.</p>
+    </div>
+  </details>
 
   <footer>
-    Stuck? These sites have more detail: <a href="https://www.pockettactics.com/pokemon-pokopia/habitats">Pocket Tactics</a> · <a href="https://rankedboost.com/pokopia/guides/dream-islands/">RankedBoost</a> · <a href="https://pokopia.center/posts/pokopia-important-requests-walkthrough-2026/">Story walkthrough</a>
+    Made with 💚 for Bao.<br>
+    Stuck? <a href="https://www.pockettactics.com/pokemon-pokopia/habitats">Pocket Tactics</a> · <a href="https://rankedboost.com/pokopia/guides/dream-islands/">RankedBoost</a> · <a href="https://pokopia.center/posts/pokopia-important-requests-walkthrough-2026/">Story walkthrough</a>
   </footer>
 
 </div>
 
+<button id="top-btn" type="button" aria-label="Back to top">↑</button>
+
 <script>
-  (function () {
-    var KEY = 'pokopia-checklist';
-    var saved = {};
-    try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { saved = {}; }
+(function () {
+  var SPRITE = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
+  var KEY = 'bao-pokopia';
 
-    var boxes = document.querySelectorAll('#checklist input');
-    var count = document.getElementById('count');
+  // ---------- saved state ----------
+  var state = { checks: {}, favs: {}, daily: { day: '', checks: {} } };
+  try {
+    var raw = JSON.parse(localStorage.getItem(KEY));
+    if (raw) {
+      state.checks = raw.checks || {};
+      state.favs = raw.favs || {};
+      state.daily = raw.daily || state.daily;
+    }
+  } catch (e) {}
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  }
 
-    function update() {
-      var done = 0;
-      boxes.forEach(function (b) { if (b.checked) done++; });
-      count.textContent = done + ' of ' + boxes.length + ' found';
+  // ---------- Pokémon data ----------
+  var POKEMON = {
+    story: [
+      ['squirtle', 7, 'Squirtle', 'Water Gun · 4 tall grass'],
+      ['bulbasaur', 1, 'Bulbasaur', 'Leafage, Grow · 4 tall grass'],
+      ['charmander', 4, 'Charmander', 'Burn helper · 4 tall grass'],
+      ['scyther', 123, 'Scyther', 'Cut, Chop · 4 tall grass + big tree'],
+      ['hitmonchan', 107, 'Hitmonchan', 'Rock Smash · Withered Wasteland'],
+      ['drilbur', 529, 'Drilbur', 'Rototiller · eastern Withered Wasteland'],
+      ['timburr', 532, 'Timburr / Machop', 'Build · 4 tall grass + big boulder'],
+      ['slowpoke', 79, 'Slowpoke', 'Story · 4 tall grass + 2 ocean water'],
+      ['geodude', 74, 'Geodude', 'Crush · 4 tall grass'],
+      ['magikarp', 129, 'Magikarp', 'Jump · Withered Wasteland'],
+      ['pikachu', 25, 'Pikachu', 'Electricity · 2 seats + table + picnic basket'],
+      ['drifloon', 425, 'Drifloon', 'Dream Islands · 3 lit campfires on the west beach'],
+      ['lapras', 131, 'Lapras', 'Surf · palm tree + 4 hedges + 2 ocean water'],
+      ['zorua', 570, 'Zorua', 'Camouflage · 4 seashore flowers'],
+      ['pawmi', 921, 'Pawmi', 'Electricity · 4 seashore flowers'],
+      ['torchic', 255, 'Torchic', 'Burn · birdhouse + table + plated food'],
+      ['piplup', 393, 'Piplup', 'Story · 4 yellow tall grass + 2 water'],
+      ['trubbish', 568, 'Trubbish', 'Recycle · waste bin + sign + garbage bags'],
+      ['scorbunny', 813, 'Scorbunny', 'Story · 4 red tall grass'],
+      ['machoke', 67, 'Machoke', 'Strength · 4 red tall grass + 2 sandbags'],
+      ['graveler', 75, 'Graveler', 'Rollout · 4 moss + mossy boulder'],
+      ['ludicolo', 272, 'Lotad / Ludicolo', 'Party · 4 duckweed + 2 water'],
+      ['dente', 820, 'Chef Dente', 'Cooking · rescue him in Rocky Ridges'],
+      ['froakie', 656, 'Froakie', 'Skylands · 4 pink tall grass + 2 water'],
+      ['dragonite', 149, 'Dragonite', 'Glide · canoe + 2 duckweed + 2 water, up high'],
+      ['gyarados', 130, 'Gyarados', 'Waterfall · Sparkling Skylands']
+    ],
+    legend: [
+      ['kyogre', 382, 'Kyogre', 'Story · end of Withered Wasteland'],
+      ['raikou', 243, 'Raikou', 'Meet in Bleak Beach story, befriend on Pikachu Doll island'],
+      ['volcanion', 721, 'Volcanion', 'Story · end of Rocky Ridges'],
+      ['mewtwo', 150, 'Mewtwo', 'Skylands rooftop, then Ditto Doll island'],
+      ['suicune', 245, 'Suicune', 'Eevee Doll island (rare)'],
+      ['entei', 244, 'Entei', 'Arcanine Doll island (rare)']
+    ],
+    extra: [
+      ['eevee', 133, 'Eevee', '4 wildflowers'],
+      ['pichu', 172, 'Pichu', '2 seats + table + picnic basket'],
+      ['oddish', 43, 'Oddish', '4 tall grass'],
+      ['rowlet', 722, 'Rowlet', '8 vegetable plots'],
+      ['cubone', 104, 'Cubone', '4 wildflowers + gravestone'],
+      ['skwovet', 819, 'Skwovet', '4 tall grass + big tree'],
+      ['combee', 415, 'Combee', '4 wildflowers'],
+      ['azurill', 298, 'Azurill', '4 yellow tall grass + 2 water'],
+      ['marill', 183, 'Marill', '4 yellow tall grass + 2 water (rarer)'],
+      ['growlithe', 58, 'Growlithe', 'palm tree + seat + plated food + lit campfire'],
+      ['riolu', 447, 'Riolu', '4 red tall grass'],
+      ['lucario', 448, 'Lucario', 'punching bag + table + CD player'],
+      ['venonat', 48, 'Venonat', '4 tall grass + a light'],
+      ['hoothoot', 163, 'Hoothoot', '4 tall grass, up high'],
+      ['rookidee', 821, 'Rookidee', '4 Skyland flowers'],
+      ['charizard', 6, 'Charizard', '4 tall grass (very rare)'],
+      ['venusaur', 3, 'Venusaur', '8 wildflowers (very rare)'],
+      ['blastoise', 9, 'Blastoise', '4 tall grass + 2 water (very rare)'],
+      ['slowking', 199, 'Slowking', '4 tall grass + 2 ocean water (very rare)']
+    ]
+  };
+  var BY_ID = {};
+
+  function sprite(dex, alt) {
+    var img = document.createElement('img');
+    img.src = SPRITE + dex + '.png';
+    img.alt = alt || '';
+    img.loading = 'lazy';
+    img.onerror = function () { img.style.visibility = 'hidden'; };
+    return img;
+  }
+
+  function buildList(listId, rows) {
+    var ul = document.getElementById(listId);
+    rows.forEach(function (r) {
+      var id = 'p-' + r[0];
+      BY_ID[id] = { dex: r[1], name: r[2], note: r[3] };
+      var li = document.createElement('li');
+      var label = document.createElement('label');
+      var box = document.createElement('input');
+      box.type = 'checkbox';
+      box.dataset.id = id;
+      box.dataset.group = 'poke';
+      var txt = document.createElement('span');
+      txt.className = 'txt';
+      txt.innerHTML = '<b></b><small></small>';
+      txt.querySelector('b').textContent = r[2];
+      txt.querySelector('small').textContent = r[3];
+      label.appendChild(box);
+      label.appendChild(sprite(r[1]));
+      label.appendChild(txt);
+      var star = document.createElement('button');
+      star.type = 'button';
+      star.className = 'star';
+      star.dataset.id = id;
+      star.setAttribute('aria-label', 'Favourite ' + r[2]);
+      li.appendChild(label);
+      li.appendChild(star);
+      ul.appendChild(li);
+    });
+  }
+  buildList('poke-story', POKEMON.story);
+  buildList('poke-legend', POKEMON.legend);
+  buildList('poke-extra', POKEMON.extra);
+
+  // pictures next to names in the text
+  document.querySelectorAll('.pk[data-dex]').forEach(function (el) {
+    el.insertBefore(sprite(el.dataset.dex), el.firstChild);
+  });
+
+  // ---------- daily reset at 5 AM ----------
+  function dayKey() {
+    var d = new Date(Date.now() - 5 * 3600 * 1000);
+    return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+  }
+  function checkDailyReset() {
+    var k = dayKey();
+    if (state.daily.day !== k) {
+      state.daily = { day: k, checks: {} };
+      save();
+      document.querySelectorAll('[data-daily] input').forEach(function (b) { b.checked = false; });
+    }
+    var now = new Date();
+    var next = new Date(now);
+    next.setHours(5, 0, 0, 0);
+    if (next <= now) next.setDate(next.getDate() + 1);
+    var mins = Math.round((next - now) / 60000);
+    var h = Math.floor(mins / 60), m = mins % 60;
+    var done = document.querySelectorAll('[data-daily] input:checked').length;
+    var total = document.querySelectorAll('[data-daily] input').length;
+    document.getElementById('reset-note').textContent =
+      (done === total ? 'All done for today! 🎉 ' : done + ' of ' + total + ' done. ') +
+      'Resets in ' + (h ? h + 'h ' : '') + m + 'm (5 AM).';
+  }
+
+  // ---------- checkboxes ----------
+  function isDaily(box) { return !!box.closest('[data-daily]'); }
+
+  function updateProgress() {
+    function count(sel) {
+      var all = document.querySelectorAll(sel);
+      var on = 0;
+      all.forEach(function (b) { if (b.checked) on++; });
+      return '<b>' + on + '</b> of ' + all.length;
+    }
+    document.getElementById('story-progress').innerHTML = count('[data-group=story] input') + ' story steps done';
+    document.getElementById('ending-progress').innerHTML = count('[data-group=ending] input') + ' ending deliveries ready';
+    document.getElementById('poke-progress').innerHTML = count('input[data-group=poke]') + ' Pokémon found';
+    checkDailyReset();
+  }
+
+  document.querySelectorAll('input[type=checkbox][data-id]').forEach(function (box) {
+    var id = box.dataset.id;
+    box.checked = isDaily(box) ? !!state.daily.checks[id] : !!state.checks[id];
+    box.addEventListener('change', function () {
+      if (isDaily(box)) {
+        checkDailyReset();
+        state.daily.checks[id] = box.checked;
+      } else {
+        state.checks[id] = box.checked;
+      }
+      save();
+      updateProgress();
+      renderFavs();
+    });
+  });
+
+  // ---------- favourites ----------
+  function renderFavs() {
+    var grid = document.getElementById('fav-grid');
+    grid.innerHTML = '';
+    var ids = Object.keys(state.favs).filter(function (k) { return state.favs[k] && BY_ID[k]; });
+    ids.forEach(function (id) {
+      var p = BY_ID[id];
+      var card = document.createElement('div');
+      card.className = 'fav';
+      card.appendChild(sprite(p.dex, p.name));
+      var b = document.createElement('b');
+      b.textContent = p.name;
+      var s = document.createElement('small');
+      s.textContent = p.note;
+      card.appendChild(b);
+      card.appendChild(s);
+      if (state.checks[id]) {
+        var f = document.createElement('div');
+        f.className = 'found';
+        f.textContent = '✓ Found';
+        card.appendChild(f);
+      }
+      grid.appendChild(card);
+    });
+    document.getElementById('fav-empty').style.display = ids.length ? 'none' : '';
+    document.querySelectorAll('.star').forEach(function (st) {
+      var on = !!state.favs[st.dataset.id];
+      st.classList.toggle('on', on);
+      st.textContent = on ? '★' : '☆';
+    });
+  }
+  document.querySelectorAll('.star').forEach(function (st) {
+    st.addEventListener('click', function () {
+      state.favs[st.dataset.id] = !state.favs[st.dataset.id];
+      save();
+      renderFavs();
+    });
+  });
+
+  // ---------- open sections from nav links ----------
+  function openTarget(hash) {
+    if (!hash || hash.length < 2) return;
+    var el = document.getElementById(hash.slice(1));
+    if (el && el.tagName === 'DETAILS') el.open = true;
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (a) openTarget(a.getAttribute('href'));
+  });
+  openTarget(location.hash);
+
+  // ---------- open / close all ----------
+  var toggleBtn = document.getElementById('toggle-all');
+  toggleBtn.addEventListener('click', function () {
+    var cards = document.querySelectorAll('details.card');
+    var anyClosed = Array.prototype.some.call(cards, function (d) { return !d.open; });
+    cards.forEach(function (d) { d.open = anyClosed; });
+    toggleBtn.textContent = anyClosed ? 'Close all' : 'Open all';
+  });
+
+  // ---------- search ----------
+  var search = document.getElementById('search');
+  var openBefore = null;
+  search.addEventListener('input', function () {
+    var q = search.value.trim().toLowerCase();
+    var cards = document.querySelectorAll('details.card');
+
+    if (!q) {
+      cards.forEach(function (d, i) {
+        d.hidden = false;
+        if (openBefore) d.open = openBefore[i];
+      });
+      openBefore = null;
+      document.querySelectorAll('[data-search-hidden]').forEach(function (el) {
+        el.hidden = false;
+        el.removeAttribute('data-search-hidden');
+      });
+      document.getElementById('no-results').style.display = 'none';
+      return;
     }
 
-    boxes.forEach(function (b) {
-      b.checked = !!saved[b.dataset.id];
-      b.addEventListener('change', function () {
-        saved[b.dataset.id] = b.checked;
-        try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
-        update();
-      });
-    });
+    if (!openBefore) openBefore = Array.prototype.map.call(cards, function (d) { return d.open; });
 
-    update();
-  })();
+    var shown = 0;
+    cards.forEach(function (d) {
+      var title = d.querySelector('summary').textContent.toLowerCase();
+      var titleHit = title.indexOf(q) !== -1;
+      var any = titleHit;
+
+      d.querySelectorAll('tbody tr, .body li, .area').forEach(function (row) {
+        var hit = row.textContent.toLowerCase().indexOf(q) !== -1;
+        var parentRow = row.parentElement.closest('li');
+        var parentHit = parentRow && parentRow.textContent.toLowerCase().indexOf(q) !== -1 &&
+          !Array.prototype.some.call(parentRow.querySelectorAll('li'), function (c) {
+            return c.textContent.toLowerCase().indexOf(q) !== -1;
+          });
+        var show = titleHit || hit || parentHit;
+        row.hidden = !show;
+        if (!show) row.setAttribute('data-search-hidden', '');
+        else row.removeAttribute('data-search-hidden');
+        if (hit) any = true;
+      });
+      d.querySelectorAll('.body p').forEach(function (p) {
+        if (p.textContent.toLowerCase().indexOf(q) !== -1) any = true;
+      });
+
+      d.hidden = !any;
+      if (any) { d.open = true; shown++; }
+    });
+    document.getElementById('no-results').style.display = shown ? 'none' : 'block';
+  });
+
+  // ---------- back to top ----------
+  var topBtn = document.getElementById('top-btn');
+  window.addEventListener('scroll', function () {
+    topBtn.classList.toggle('show', window.scrollY > 600);
+  }, { passive: true });
+  topBtn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+  // ---------- start ----------
+  checkDailyReset();
+  document.querySelectorAll('[data-daily] input').forEach(function (b) {
+    b.checked = !!state.daily.checks[b.dataset.id];
+  });
+  updateProgress();
+  renderFavs();
+  setInterval(checkDailyReset, 60000);
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function () {});
+    });
+  }
+})();
 </script>
 </body>
 </html>
