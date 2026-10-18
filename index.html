@@ -219,6 +219,20 @@
     .poke-list .txt { line-height: 1.3; }
     .poke-list .txt small { display: block; color: var(--muted); font-size: 0.82rem; }
     .poke-list input:checked ~ .txt b { color: var(--muted); text-decoration: line-through; }
+    .skills { display: inline; }
+    .fav .skills { display: block; margin-top: 0.2rem; }
+    .skill {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 0.05rem 0.5rem;
+      margin: 0 0 0 0.35rem;
+      vertical-align: 1px;
+    }
+    .fav .skill { margin: 0.1rem 0.15rem; }
     .star {
       font-size: 1.35rem;
       background: none;
@@ -293,7 +307,10 @@
       <a href="#favs">Favourites</a>
       <a href="#story">Story</a>
       <a href="#collect">Pokémon</a>
+      <a href="#howto">How do I…</a>
       <a href="#tricks">Tricks</a>
+      <a href="#skills">Skills</a>
+      <a href="#setups">Busy-bee setups</a>
       <a href="#start">First steps</a>
       <a href="#moves">Moves</a>
       <a href="#habitats">Habitats</a>
@@ -454,6 +471,97 @@
     </div>
   </details>
 
+  <!-- HOW DO I -->
+  <details class="card" id="howto">
+    <summary><h2>❓ How do I…</h2></summary>
+    <div class="body">
+
+      <h3>…get all the fruits (berries)?</h3>
+      <p>Walk up to any berry tree and press <strong>A</strong> to shake it. The berries fall down, and it costs no PP. A tree grows a new berry every hour and holds up to 3.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Berry</th><th>Where to get it</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Leppa</strong></td><td>Almost every tree in Withered Wasteland. Best berry for refilling PP.</td></tr>
+            <tr><td><strong>Aspear</strong></td><td>Seed in a Poké Ball by the Bleak Beach waterfall</td></tr>
+            <tr><td><strong>Chesto</strong></td><td>Seed in a Poké Ball near Smeargle, a bit below the middle of Bleak Beach</td></tr>
+            <tr><td><strong>Pecha</strong></td><td>Seed on the side path by the Lava Lake in Rocky Ridges (enter the volcano left of the Pokémon Center). You need powered-up Cut, so eat bread first.</td></tr>
+            <tr><td><strong>Lum</strong></td><td>Seed past Gimmighoul's Manor in Rocky Ridges (take the manor's far-right door into the lava area)</td></tr>
+            <tr><td><strong>Rawst</strong></td><td>Seed on the top-left island of Sparkling Skylands, in a hole with hanging vines</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li>Plant the seeds to grow your own berry trees close to home.</li>
+        <li><strong>Dried-up trees:</strong> spray them with Water Gun. They come back to life and keep giving berries forever.</li>
+        <li>Each world naturally grows Leppa plus <strong>one other random berry</strong>, so collect every seed you find.</li>
+        <li>Pokémon with the <strong>Trade</strong> skill at Pokémon Centers can also swap berries with you.</li>
+      </ul>
+
+      <h3>…get all the vegetables?</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Crop</th><th>Where to get seeds</th><th>Used for</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Beans</strong></td><td>Drilbur gives you 5 to start. Also found wild in Withered Wasteland and Rocky Ridges, and sold in the shop.</td><td>All hamburger steaks, Healthy Soup</td></tr>
+            <tr><td><strong>Wheat</strong></td><td>Wild in Rocky Ridges and Skylands, gifts from Rocky Ridges Pokémon, red Poké Balls, and the shop</td><td>All breads</td></tr>
+            <tr><td><strong>Tomatoes</strong></td><td>Wild in Bleak Beach and Skylands. Finding wild ones unlocks seeds in the shop.</td><td>Tomato Hamburger Steak. They <strong>must</strong> be watered.</td></tr>
+            <tr><td><strong>Potatoes</strong></td><td>Dragonite Doll Dream Island, sparkling water ripples in Skylands, and the shop</td><td>Potato and Vibrant Hamburger Steaks</td></tr>
+            <tr><td><strong>Watermelon</strong> <em>(DLC)</em></td><td>Bubbly Basin</td><td>Smoothies and Watermelon Bread. A Chop Pokémon slices it.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><strong>Grab seeds from wild crops:</strong> Rototiller picks up the whole plant to replant at home. Rock Smash gives just the seed.</li>
+        <li><strong>Sparkling ripples in water</strong> often hide seeds, so check them.</li>
+        <li>Carrots only grow wild. You can't plant them.</li>
+      </ul>
+
+      <h3>…get more tools and things to craft?</h3>
+      <ul>
+        <li>Your first <strong>Workbench</strong> costs just 2 Stone. Put it near home.</li>
+        <li>New crafting recipes unlock when you:
+          <ul>
+            <li>progress the story</li>
+            <li>raise an area's <strong>Environment Level</strong></li>
+            <li>finish Pokémon requests</li>
+            <li>open <strong>glowing Poké Balls</strong> you find while exploring</li>
+            <li>check <strong>sparkling ripples</strong> in water</li>
+            <li>buy them in the <strong>PC Shop</strong>, which has daily specials</li>
+          </ul>
+        </li>
+        <li><strong>Cooking tools</strong> (Cutting Board, Cooking Pot, Bread Oven, Frying Pan) unlock one by one after rescuing Chef Dente. Make them at the Workbench.</li>
+        <li><strong>Sprinkler</strong> (waters crops for you): look for it in the shop or as a daily special.</li>
+        <li>Your <strong>moves</strong> are your real tools, so meet new Pokémon to learn more. See <a href="#moves">Moves</a>.</li>
+      </ul>
+
+      <h3>…swim?</h3>
+      <ol>
+        <li>In <strong>Bleak Beach</strong>, build Lapras's habitat: <strong>1 big palm tree + 4 hedges + 2 ocean water</strong>. Leave the area and come back if it doesn't show up right away.</li>
+        <li>Lapras asks for help cleaning mud off the beach. Bring a <strong>Water</strong> Pokémon like Piplup to spray it away.</li>
+        <li>Lapras then teaches you <strong>Surf</strong>. Press <strong>B</strong> in water to swim.</li>
+      </ol>
+      <ul>
+        <li>Swimming uses PP, so bring snacks.</li>
+        <li><strong>Waterfall</strong> (from Gyarados in Skylands) lets you go up waterfalls.</li>
+        <li><strong>Dive (underwater):</strong> update the game to 2.0, get Bleak Beach to Environment Level 5, and make sure you know Jump and Surf. Then talk to Professor Tangrowth, go to the new island, and bring <strong>Manaphy 5 Seaweed</strong>.</li>
+      </ul>
+
+      <h3>…attract a specific Pokémon?</h3>
+      <ol>
+        <li>Find its habitat in the <a href="#habitats">Habitats</a> lists, or in the <strong>Habitat Dex</strong> in your Pokédex.</li>
+        <li>Build it in the right area. Some need water, ocean water or a high spot.</li>
+        <li>If something else already lives there, move that Pokémon into a house to free up the spot.</li>
+        <li>Rare ones (★★ or ★★★) take longer. Feed Mosslax a <strong>Spicy</strong> dish to make Pokémon show up more often.</li>
+        <li>Some only come out at certain times of day, so check in the morning and again at night.</li>
+        <li>Already seen it but can't find it? Use the <strong>Fly trick</strong> in <a href="#tricks">Tricks</a>.</li>
+      </ol>
+
+      <h3>…build a super productive area?</h3>
+      <p>See <a href="#setups">Busy-bee setups</a>: Pokémon that make items, paired with Pokémon that collect them.</p>
+    </div>
+  </details>
+
   <!-- FIRST STEPS -->
   <details class="card" id="start">
     <summary><h2>🌱 First steps</h2></summary>
@@ -519,7 +627,7 @@
             <tr><td>8 wildflowers</td><td>Vespiquen, Ivysaur</td></tr>
             <tr><td>4 wildflowers + 1 gravestone</td><td>Cubone</td></tr>
             <tr><td>8 vegetable plots</td><td>Drilbur, Rowlet</td></tr>
-            <tr><td>2 seats + 1 table + 1 picnic basket</td><td>Pikachu, Pichu</td></tr>
+            <tr><td>2 seats + 1 table + 1 picnic basket <small>(some guides say this one works in Palette Town)</small></td><td>Pikachu, Pichu</td></tr>
           </tbody>
         </table>
       </div>
@@ -600,47 +708,23 @@
         <li>Help <strong>Drilbur</strong> in eastern Withered Wasteland. It teaches <strong>Rototiller</strong> and gives you 5 Bean Seeds.</li>
         <li>Use Rototiller on grass or dirt to make a farm plot.</li>
         <li>Hold the seeds from your bag, aim at the plot and press <strong>A</strong> to plant them.</li>
-        <li>Water them with Water Gun if they need it, then wait.</li>
+        <li><strong>Water them</strong> with Water Gun. Watered crops grow one stage a day and are ready in about 3 days.</li>
+        <li>Each ripe plant gives <strong>3 crops</strong>. After harvesting, <strong>water the plant again and it regrows</strong>, so there's no need to replant.</li>
       </ol>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Crop</th><th>Where to get seeds</th><th>Notes</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Beans</strong></td><td>Drilbur, Pokémon Center shop</td><td>Easiest crop, no watering needed. Used for hamburger steaks.</td></tr>
-            <tr><td><strong>Wheat</strong></td><td>Shop, gifts from Rocky Ridges Pokémon, red Poké Balls</td><td>Used for bread. You need lots for the Rocky Ridges party.</td></tr>
-            <tr><td><strong>Tomatoes</strong></td><td>Unlocks at Bleak Beach Environment Level 3</td><td>Need watering.</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="tip"><strong>Tip:</strong> Keep a <strong>Grow</strong> Pokémon (Bulbasaur, Rowlet) near your farm to make crops grow faster. Rock Smash on wild crops gives you their seeds.</div>
+      <div class="tip"><strong>Tip:</strong> Water the dirt <em>before</em> using Rototiller, because it won't work on dry dirt.</div>
+      <p>For every crop, berry and the best farm setups, see <a href="#howto">How do I…</a> and <a href="#setups">Busy-bee setups</a>.</p>
     </div>
   </details>
 
   <!-- HOMES -->
   <details class="card" id="homes">
-    <summary><h2>🏡 Homes &amp; Pokémon helpers</h2></summary>
+    <summary><h2>🏡 Homes</h2></summary>
     <div class="body">
       <ul>
         <li><strong>Building kits</strong> are sold in the PC Shop inside any Pokémon Center. Place the kit, add the materials it needs, and have a <strong>Build</strong> Pokémon (like Machop or Timburr) build it.</li>
         <li>You can also build your own house: walls at least 2 blocks high, a door, and at least 3 pieces of furniture. Up to 4 Pokémon can share a house.</li>
       </ul>
-      <h3>What each helper does</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Job</th><th>What it does</th><th>Who has it</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Build</strong></td><td>Builds houses and buildings</td><td>Machop, Timburr, Cubone</td></tr>
-            <tr><td><strong>Chop</strong></td><td>Turns logs into lumber</td><td>Scyther, Pinsir</td></tr>
-            <tr><td><strong>Grow</strong></td><td>Makes crops grow faster</td><td>Bulbasaur, Oddish, Rowlet</td></tr>
-            <tr><td><strong>Burn</strong></td><td>Lights fires and ovens, smelts ore</td><td>Charmander, Torchic, Vulpix</td></tr>
-            <tr><td><strong>Crush</strong></td><td>Breaks rocks into stone and ore</td><td>Geodude, Graveler</td></tr>
-            <tr><td><strong>Generate</strong></td><td>Makes electricity</td><td>Pikachu, Pawmi</td></tr>
-            <tr><td><strong>Recycle</strong></td><td>Turns rubbish into iron and paper</td><td>Trubbish</td></tr>
-            <tr><td><strong>Gather</strong></td><td>Picks up items lying around</td><td>Gastly, Espeon</td></tr>
-            <tr><td><strong>Hype</strong></td><td>Gets parties going (needed in Rocky Ridges)</td><td>Cinderace, Raichu, Chatot</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <p>To see what each Pokémon is good at, check <a href="#skills">Pokémon skills explained</a>.</p>
     </div>
   </details>
 
@@ -715,6 +799,96 @@
         </table>
       </div>
       <div class="tip"><strong>Tip:</strong> You can swap followers at any habitat as often as you like, so change the team to suit the job.</div>
+    </div>
+  </details>
+
+  <!-- SKILLS -->
+  <details class="card" id="skills">
+    <summary><h2>🏷️ Pokémon skills explained</h2></summary>
+    <div class="body">
+      <p>Every Pokémon has one or two <strong>skills</strong> (the game calls them "specialties"). You can see them in the Pokédex under <strong>"Specialties and Likes"</strong>, and on each Pokémon in the <a href="#collect">checklist</a>. Skills can't be changed.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Skill</th><th>What it does</th><th>Who has it</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Build</strong></td><td>Builds houses and buildings from kits</td><td>Timburr, Machop, Machoke, Cubone, Riolu, Lucario</td></tr>
+            <tr><td><strong>Gather</strong></td><td>Picks up items lying on the ground and puts them in a nearby Community Box</td><td>Machop, Machoke</td></tr>
+            <tr><td><strong>Litter</strong></td><td>Drops free items near its home every day (see <a href="#setups">what each drops</a>)</td><td>Combee, Venusaur, Mareep, Bellsprout, Clodsire</td></tr>
+            <tr><td><strong>Search</strong></td><td>Finds hidden items buried underground or in hard-to-reach spots</td><td>Drilbur, Skwovet, Venonat, Growlithe, Pidgey</td></tr>
+            <tr><td><strong>Chop</strong></td><td>Turns Small Logs into Lumber, and slices watermelons</td><td>Scyther, Rookidee, Pinsir</td></tr>
+            <tr><td><strong>Crush</strong></td><td>Breaks rocks into Stone and Ore, and crushes berries into paint</td><td>Geodude, Graveler</td></tr>
+            <tr><td><strong>Burn</strong></td><td>Lights campfires and ovens, smelts ore, and bakes clay into bricks</td><td>Charmander, Torchic, Scorbunny, Growlithe</td></tr>
+            <tr><td><strong>Water</strong></td><td>Waters plants and fills water basins. Near a full basin, it waters crops for you.</td><td>Squirtle, Piplup, Lapras, Froakie, Marill</td></tr>
+            <tr><td><strong>Grow</strong></td><td>Makes crops and plants grow faster</td><td>Bulbasaur, Oddish, Rowlet, Venusaur</td></tr>
+            <tr><td><strong>Generate</strong></td><td>Makes electricity for lights and machines</td><td>Pikachu, Pichu, Pawmi, Raikou</td></tr>
+            <tr><td><strong>Recycle</strong></td><td>Turns rubbish into Iron Ore and Wastepaper into Paper</td><td>Trubbish</td></tr>
+            <tr><td><strong>Trade</strong></td><td>Swaps items with you, and can turn common items into rarer ones</td><td>Hitmonchan, Zorua, Eevee, Hoothoot, Blastoise</td></tr>
+            <tr><td><strong>Hype</strong></td><td>Cheers up nearby Pokémon. Needed for the Rocky Ridges party.</td><td>Ludicolo, Skwovet, Marill, Azurill</td></tr>
+            <tr><td><strong>Fly</strong></td><td>Flies you to places, or to a Pokémon you're looking for</td><td>Pidgey, Hoothoot, Charizard, Dragonite</td></tr>
+            <tr><td><strong>Teleport</strong></td><td>Instantly takes you to places you've been</td><td>Mewtwo, Slowking</td></tr>
+            <tr><td><strong>Storage</strong></td><td>Carries extra items for you while following</td><td>Gulpin</td></tr>
+            <tr><td><strong>Bulldoze</strong></td><td>Flattens land and clears rubble</td><td>Onix, Snorlax</td></tr>
+            <tr><td><strong>Explode</strong></td><td>Clears big obstacles fast</td><td>Voltorb, Electrode</td></tr>
+            <tr><td><strong>Yawn</strong></td><td>Used in the Withered Wasteland story</td><td>Slowpoke</td></tr>
+            <tr><td><strong>Dream Island</strong></td><td>Flies you to Dream Islands</td><td>Drifloon</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <!-- SETUPS -->
+  <details class="card" id="setups">
+    <summary><h2>🐝 Busy-bee setups (free items every day)</h2></summary>
+    <div class="body">
+      <p>The trick: <strong>Litter</strong> Pokémon drop items near their home every day, even when you're away. A <strong>Gather</strong> Pokémon picks them up and puts them in a <strong>Community Box</strong>. You just come back and empty the box.</p>
+
+      <h3>The basic setup</h3>
+      <ol>
+        <li>Build the habitat for a Litter Pokémon and make friends with it.</li>
+        <li>Craft a <strong>Community Box</strong> and put it right next to that habitat.</li>
+        <li>Move a <strong>Gather</strong> Pokémon (like <span class="pk" data-dex="66">Machop</span> or <span class="pk" data-dex="67">Machoke</span>) in nearby.</li>
+        <li>It keeps sweeping up the drops into the box. Check it every day or two.</li>
+      </ol>
+
+      <h3>What each Litter Pokémon drops</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Item</th><th>Pokémon</th><th>Useful for</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Honey</strong></td><td>Combee</td><td>Cooking, attracting Pokémon, the Rocky Ridges party (needs 5)</td></tr>
+            <tr><td><strong>Fluff</strong></td><td>Mareep, Flaaffy, Swablu, Altaria, Jumpluff</td><td>Crafting, ending delivery 3</td></tr>
+            <tr><td><strong>Squishy Clay</strong></td><td>Clodsire, Paldean Wooper, Trapinch</td><td>Give it to a Burn Pokémon to make <strong>Bricks</strong></td></tr>
+            <tr><td><strong>Iron Ore</strong></td><td>Glimmet, Glimmora</td><td>Ingots, Skylands floors</td></tr>
+            <tr><td><strong>Small Log</strong></td><td>Haxorus</td><td>Lumber. Haxorus also has Chop, so it makes lumber by itself.</td></tr>
+            <tr><td><strong>Vine Rope</strong></td><td>Bellsprout, Weepinbell, Tangela, Snivy</td><td>Crafting</td></tr>
+            <tr><td><strong>Twine</strong></td><td>Spinarak, Ariados, Larvesta, Volcarona</td><td>Crafting</td></tr>
+            <tr><td><strong>Leaf</strong></td><td>Venusaur, Vileplume</td><td>Salads</td></tr>
+            <tr><td><strong>Stone</strong></td><td>Blissey, Rampardos, Bastiodon</td><td>Building</td></tr>
+            <tr><td><strong>Sturdy Stick</strong></td><td>Cacturne</td><td>Campfires, crafting</td></tr>
+            <tr><td><strong>Rubbish</strong></td><td>Grimer, Muk, Garbodor</td><td>Give it to a Recycle Pokémon to get Iron Ore</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Great combos</h3>
+      <ul>
+        <li><strong>🍯 Honey farm:</strong> Combee (and Vespiquen) + a Gather Pokémon + a Community Box.</li>
+        <li><strong>⚙️ Iron farm (Rocky Ridges):</strong> Glimmet or Glimmora + a Gather Pokémon + a Community Box. Add a <strong>Burn</strong> Pokémon to smelt the ore into ingots.</li>
+        <li><strong>🧱 Brick farm:</strong> Clodsire or Trapinch drops clay. Hand it to Charmander or Torchic to bake into bricks (you need 40 for the ending).</li>
+        <li><strong>🪓 Lumber farm:</strong> Haxorus drops logs and chops them into lumber itself.</li>
+        <li><strong>🔁 Rubbish to iron:</strong> Grimer or Garbodor drops rubbish. Trubbish (Recycle) turns it into Iron Ore.</li>
+      </ul>
+
+      <h3>🌱 Self-watering crop farm</h3>
+      <ol>
+        <li>Dig a water hole at least <strong>2×2</strong> so it refills itself, and cover it with a plank.</li>
+        <li>Put a <strong>Sprinkler</strong> on top. It waters a diamond shape of soil around it, up to 5 blocks out.</li>
+        <li>Till a diamond of soil around the sprinkler and plant your crops. Square fields leave the corners dry.</li>
+        <li>Keep a <strong>Grow</strong> Pokémon (Bulbasaur, Rowlet, Oddish) living next to the farm to speed things up.</li>
+        <li>No sprinkler yet? A <strong>Water</strong> Pokémon living near a full water basin waters nearby crops for you.</li>
+      </ol>
+      <div class="tip"><strong>About berries:</strong> no Pokémon shakes the trees for you, so berries are still a quick A-press each. Plant all your berry trees in one spot near home so collecting them takes seconds.</div>
     </div>
   </details>
 
@@ -955,63 +1129,67 @@
   }
 
   // ---------- Pokémon data ----------
+  // [id, dex number, name, skills, where / what it's for]
   var POKEMON = {
     story: [
-      ['squirtle', 7, 'Squirtle', 'Water Gun · 4 tall grass'],
-      ['bulbasaur', 1, 'Bulbasaur', 'Leafage, Grow · 4 tall grass'],
-      ['charmander', 4, 'Charmander', 'Burn helper · 4 tall grass'],
-      ['scyther', 123, 'Scyther', 'Cut, Chop · 4 tall grass + big tree'],
-      ['hitmonchan', 107, 'Hitmonchan', 'Rock Smash · Withered Wasteland'],
-      ['drilbur', 529, 'Drilbur', 'Rototiller · eastern Withered Wasteland'],
-      ['timburr', 532, 'Timburr / Machop', 'Build · 4 tall grass + big boulder'],
-      ['slowpoke', 79, 'Slowpoke', 'Story · 4 tall grass + 2 ocean water'],
-      ['geodude', 74, 'Geodude', 'Crush · 4 tall grass'],
-      ['magikarp', 129, 'Magikarp', 'Jump · Withered Wasteland'],
-      ['pikachu', 25, 'Pikachu', 'Electricity · 2 seats + table + picnic basket'],
-      ['drifloon', 425, 'Drifloon', 'Dream Islands · 3 lit campfires on the west beach'],
-      ['lapras', 131, 'Lapras', 'Surf · palm tree + 4 hedges + 2 ocean water'],
-      ['zorua', 570, 'Zorua', 'Camouflage · 4 seashore flowers'],
-      ['pawmi', 921, 'Pawmi', 'Electricity · 4 seashore flowers'],
-      ['torchic', 255, 'Torchic', 'Burn · birdhouse + table + plated food'],
-      ['piplup', 393, 'Piplup', 'Story · 4 yellow tall grass + 2 water'],
-      ['trubbish', 568, 'Trubbish', 'Recycle · waste bin + sign + garbage bags'],
-      ['scorbunny', 813, 'Scorbunny', 'Story · 4 red tall grass'],
-      ['machoke', 67, 'Machoke', 'Strength · 4 red tall grass + 2 sandbags'],
-      ['graveler', 75, 'Graveler', 'Rollout · 4 moss + mossy boulder'],
-      ['ludicolo', 272, 'Lotad / Ludicolo', 'Party · 4 duckweed + 2 water'],
-      ['dente', 820, 'Chef Dente', 'Cooking · rescue him in Rocky Ridges'],
-      ['froakie', 656, 'Froakie', 'Skylands · 4 pink tall grass + 2 water'],
-      ['dragonite', 149, 'Dragonite', 'Glide · canoe + 2 duckweed + 2 water, up high'],
-      ['gyarados', 130, 'Gyarados', 'Waterfall · Sparkling Skylands']
+      ['squirtle', 7, 'Squirtle', 'Water', 'Teaches Water Gun · 4 tall grass'],
+      ['bulbasaur', 1, 'Bulbasaur', 'Grow', 'Teaches Leafage · 4 tall grass'],
+      ['charmander', 4, 'Charmander', 'Burn', 'Lights fires & ovens · 4 tall grass'],
+      ['scyther', 123, 'Scyther', 'Chop', 'Teaches Cut · 4 tall grass + big tree'],
+      ['hitmonchan', 107, 'Hitmonchan', 'Trade', 'Teaches Rock Smash · Withered Wasteland'],
+      ['drilbur', 529, 'Drilbur', 'Search', 'Teaches Rototiller · eastern Withered Wasteland'],
+      ['timburr', 532, 'Timburr', 'Build', 'Builder · 4 tall grass + big boulder'],
+      ['machop', 66, 'Machop', 'Build, Gather', 'Builder & collector · 4 tall grass + big boulder'],
+      ['slowpoke', 79, 'Slowpoke', 'Water, Yawn', 'Story · 4 tall grass + 2 ocean water'],
+      ['geodude', 74, 'Geodude', 'Crush', 'Breaks rocks into stone & ore · 4 tall grass'],
+      ['magikarp', 129, 'Magikarp', '', 'Teaches Jump · Withered Wasteland'],
+      ['pikachu', 25, 'Pikachu', 'Generate', 'Electricity · 2 seats + table + picnic basket'],
+      ['drifloon', 425, 'Drifloon', 'Dream Island', 'Flies you to Dream Islands · 3 lit campfires, west beach'],
+      ['lapras', 131, 'Lapras', 'Water', 'Teaches Surf · palm tree + 4 hedges + 2 ocean water'],
+      ['zorua', 570, 'Zorua', 'Trade', 'Teaches Camouflage · 4 seashore flowers'],
+      ['pawmi', 921, 'Pawmi', 'Generate', 'Electricity · 4 seashore flowers'],
+      ['torchic', 255, 'Torchic', 'Burn', 'Story · birdhouse + table + plated food'],
+      ['piplup', 393, 'Piplup', 'Water', 'Story · 4 yellow tall grass + 2 water'],
+      ['trubbish', 568, 'Trubbish', 'Recycle', 'Rubbish → iron & paper · waste bin + sign + garbage bags'],
+      ['scorbunny', 813, 'Scorbunny', 'Burn', 'Story · 4 red tall grass'],
+      ['machoke', 67, 'Machoke', 'Build, Gather', 'Teaches Strength · 4 red tall grass + 2 sandbags'],
+      ['graveler', 75, 'Graveler', 'Crush', 'Teaches Rollout · 4 moss + mossy boulder'],
+      ['ludicolo', 272, 'Ludicolo', 'Water, Hype', 'Party helper · 4 duckweed + 2 water'],
+      ['dente', 820, 'Chef Dente', 'Cooking', 'Unlocks cooking · rescue him in Rocky Ridges'],
+      ['froakie', 656, 'Froakie', 'Water', 'Skylands · 4 pink tall grass + 2 water'],
+      ['dragonite', 149, 'Dragonite', 'Water, Fly', 'Teaches Glide · canoe + 2 duckweed + 2 water, up high'],
+      ['gyarados', 130, 'Gyarados', 'Water', 'Teaches Waterfall · Sparkling Skylands'],
+      ['gulpin', 316, 'Gulpin', 'Storage', 'Portable storage when it follows you']
     ],
     legend: [
-      ['kyogre', 382, 'Kyogre', 'Story · end of Withered Wasteland'],
-      ['raikou', 243, 'Raikou', 'Meet in Bleak Beach story, befriend on Pikachu Doll island'],
-      ['volcanion', 721, 'Volcanion', 'Story · end of Rocky Ridges'],
-      ['mewtwo', 150, 'Mewtwo', 'Skylands rooftop, then Ditto Doll island'],
-      ['suicune', 245, 'Suicune', 'Eevee Doll island (rare)'],
-      ['entei', 244, 'Entei', 'Arcanine Doll island (rare)']
+      ['kyogre', 382, 'Kyogre', '', 'Story · end of Withered Wasteland'],
+      ['raikou', 243, 'Raikou', 'Generate', 'Meet in Bleak Beach story, befriend on Pikachu Doll island'],
+      ['volcanion', 721, 'Volcanion', 'Burn', 'Story · end of Rocky Ridges'],
+      ['mewtwo', 150, 'Mewtwo', 'Teleport', 'Skylands rooftop, then Ditto Doll island'],
+      ['suicune', 245, 'Suicune', 'Water', 'Eevee Doll island (rare)'],
+      ['entei', 244, 'Entei', 'Burn', 'Arcanine Doll island (rare)']
     ],
     extra: [
-      ['eevee', 133, 'Eevee', '4 wildflowers'],
-      ['pichu', 172, 'Pichu', '2 seats + table + picnic basket'],
-      ['oddish', 43, 'Oddish', '4 tall grass'],
-      ['rowlet', 722, 'Rowlet', '8 vegetable plots'],
-      ['cubone', 104, 'Cubone', '4 wildflowers + gravestone'],
-      ['skwovet', 819, 'Skwovet', '4 tall grass + big tree'],
-      ['combee', 415, 'Combee', '4 wildflowers'],
-      ['azurill', 298, 'Azurill', '4 yellow tall grass + 2 water'],
-      ['marill', 183, 'Marill', '4 yellow tall grass + 2 water (rarer)'],
-      ['growlithe', 58, 'Growlithe', 'palm tree + seat + plated food + lit campfire'],
-      ['riolu', 447, 'Riolu', '4 red tall grass'],
-      ['lucario', 448, 'Lucario', 'punching bag + table + CD player'],
-      ['venonat', 48, 'Venonat', '4 tall grass + a light'],
-      ['hoothoot', 163, 'Hoothoot', '4 tall grass, up high'],
-      ['rookidee', 821, 'Rookidee', '4 Skyland flowers'],
-      ['charizard', 6, 'Charizard', '4 tall grass (very rare)'],
-      ['venusaur', 3, 'Venusaur', '8 wildflowers (very rare)'],
-      ['blastoise', 9, 'Blastoise', '4 tall grass + 2 water (very rare)'],
-      ['slowking', 199, 'Slowking', '4 tall grass + 2 ocean water (very rare)']
+      ['eevee', 133, 'Eevee', 'Trade', '4 wildflowers'],
+      ['pichu', 172, 'Pichu', 'Generate', '2 seats + table + picnic basket'],
+      ['oddish', 43, 'Oddish', 'Grow', '4 tall grass'],
+      ['rowlet', 722, 'Rowlet', 'Grow', '8 vegetable plots'],
+      ['cubone', 104, 'Cubone', 'Build', '4 wildflowers + gravestone'],
+      ['skwovet', 819, 'Skwovet', 'Search, Hype', '4 tall grass + big tree'],
+      ['combee', 415, 'Combee', 'Litter (Honey)', '4 wildflowers'],
+      ['azurill', 298, 'Azurill', 'Water, Hype', '4 yellow tall grass + 2 water'],
+      ['marill', 183, 'Marill', 'Water, Hype', '4 yellow tall grass + 2 water (rarer)'],
+      ['growlithe', 58, 'Growlithe', 'Burn, Search', 'palm tree + seat + plated food + lit campfire'],
+      ['riolu', 447, 'Riolu', 'Build', '4 red tall grass'],
+      ['lucario', 448, 'Lucario', 'Build', 'punching bag + table + CD player'],
+      ['venonat', 48, 'Venonat', 'Search', '4 tall grass + a light'],
+      ['hoothoot', 163, 'Hoothoot', 'Fly, Trade', '4 tall grass, up high'],
+      ['pidgey', 16, 'Pidgey', 'Fly, Search', '4 tall grass up high, or 4 wildflowers'],
+      ['rookidee', 821, 'Rookidee', 'Chop', '4 Skyland flowers'],
+      ['charizard', 6, 'Charizard', 'Burn, Fly', '4 tall grass (very rare)'],
+      ['venusaur', 3, 'Venusaur', 'Grow, Litter (Leaf)', '8 wildflowers (very rare)'],
+      ['blastoise', 9, 'Blastoise', 'Water, Trade', '4 tall grass + 2 water (very rare)'],
+      ['slowking', 199, 'Slowking', 'Water, Teleport', '4 tall grass + 2 ocean water (very rare)']
     ]
   };
   var BY_ID = {};
@@ -1025,11 +1203,21 @@
     return img;
   }
 
+  function skillTags(el, skills) {
+    if (!skills) return;
+    skills.split(', ').forEach(function (s) {
+      var tag = document.createElement('span');
+      tag.className = 'skill';
+      tag.textContent = s;
+      el.appendChild(tag);
+    });
+  }
+
   function buildList(listId, rows) {
     var ul = document.getElementById(listId);
     rows.forEach(function (r) {
       var id = 'p-' + r[0];
-      BY_ID[id] = { dex: r[1], name: r[2], note: r[3] };
+      BY_ID[id] = { dex: r[1], name: r[2], skills: r[3], note: r[4] };
       var li = document.createElement('li');
       var label = document.createElement('label');
       var box = document.createElement('input');
@@ -1038,9 +1226,10 @@
       box.dataset.group = 'poke';
       var txt = document.createElement('span');
       txt.className = 'txt';
-      txt.innerHTML = '<b></b><small></small>';
+      txt.innerHTML = '<b></b><span class="skills"></span><small></small>';
       txt.querySelector('b').textContent = r[2];
-      txt.querySelector('small').textContent = r[3];
+      skillTags(txt.querySelector('.skills'), r[3]);
+      txt.querySelector('small').textContent = r[4];
       label.appendChild(box);
       label.appendChild(sprite(r[1]));
       label.appendChild(txt);
@@ -1132,9 +1321,13 @@
       card.appendChild(sprite(p.dex, p.name));
       var b = document.createElement('b');
       b.textContent = p.name;
+      var sk = document.createElement('div');
+      sk.className = 'skills';
+      skillTags(sk, p.skills);
       var s = document.createElement('small');
       s.textContent = p.note;
       card.appendChild(b);
+      card.appendChild(sk);
       card.appendChild(s);
       if (state.checks[id]) {
         var f = document.createElement('div');
